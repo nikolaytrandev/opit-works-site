@@ -402,68 +402,6 @@
     }
     .phil-body p + p { margin-top: 1.25rem; }
 
-    /* ─── WORK ─── */
-    #work { position: relative; }
-
-    .work-header { margin-bottom: 4rem; }
-
-    .work-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 1.25rem;
-    }
-    @media (max-width: 860px) {
-      .work-grid { grid-template-columns: 1fr; }
-    }
-
-    .work-card {
-      position: relative;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 2.25rem;
-      display: flex; flex-direction: column; gap: 1.25rem;
-      overflow: hidden;
-      transition: transform 300ms var(--ease), box-shadow 300ms, border-color 300ms;
-    }
-    /* Top accent bar via pseudo */
-    .work-card::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0; height: 2px;
-      border-radius: 18px 18px 0 0;
-    }
-    .work-card:nth-child(1)::before { background: var(--gold); }
-    .work-card:nth-child(2)::before { background: var(--green); }
-    .work-card:nth-child(3)::before { background: var(--violet); }
-
-    .work-card:nth-child(1):hover { border-color: rgba(200,168,112,.22); }
-    .work-card:nth-child(2):hover { border-color: rgba(79,130,100,.22); }
-    .work-card:nth-child(3):hover { border-color: rgba(122,111,160,.22); }
-
-    .work-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 20px 60px rgba(0,0,0,.45);
-    }
-
-    .card-index {
-      font-family: var(--font-d); font-style: italic;
-      font-size: .95rem; font-weight: 300; color: var(--dim);
-    }
-    .card-title {
-      font-family: var(--font-d);
-      font-size: 1.875rem; font-weight: 400;
-      color: var(--text); letter-spacing: -.015em; line-height: 1.15;
-    }
-    .card-desc {
-      font-size: .9375rem; color: var(--muted); line-height: 1.78; flex: 1;
-    }
-    .card-tags { display: flex; flex-wrap: wrap; gap: .4rem; }
-    .tag {
-      font-size: .67rem; font-weight: 600; letter-spacing: .07em; text-transform: uppercase;
-      padding: .22rem .65rem;
-      border-radius: 100px; border: 1px solid var(--border-2);
-      color: var(--dim);
-    }
-
     /* ─── METHOD ─── */
     #method { position: relative; overflow: hidden; }
 
@@ -608,7 +546,6 @@
       </a>
       <ul class="nav-links" role="list">
         <li><a href="#philosophy">Philosophy</a></li>
-        <li><a href="#work">Work</a></li>
         <li><a href="#method">Method</a></li>
         <li><a href="#contact" class="nav-cta">Let's talk</a></li>
       </ul>
@@ -703,67 +640,6 @@
               playing.
             </p>
           </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ── WORK ── -->
-    <section id="work" aria-labelledby="work-heading">
-      <div class="container">
-        <div class="work-header">
-          <p class="kicker reveal">Selected work</p>
-          <h2 class="section-headline reveal rd1" id="work-heading">
-            Small bets.<br><em>Unexpected angles.</em>
-          </h2>
-        </div>
-
-        <div class="work-grid">
-
-          <article class="work-card reveal rd1">
-            <div class="card-index" aria-hidden="true">01</div>
-            <h3 class="card-title">Meno</h3>
-            <p class="card-desc">
-              A game that reframes menopause as a hero's journey through biology.
-              Hormonal change becomes a system to understand and master — not an
-              ordeal to survive.
-            </p>
-            <div class="card-tags" aria-label="Tags">
-              <span class="tag">Health</span>
-              <span class="tag">Mastery</span>
-              <span class="tag">Play</span>
-            </div>
-          </article>
-
-          <article class="work-card reveal rd2">
-            <div class="card-index" aria-hidden="true">02</div>
-            <h3 class="card-title">Loop</h3>
-            <p class="card-desc">
-              A peer-learning platform for surgeons built around annotated video.
-              Precision is social — the best operations become lessons that travel
-              through a community of practice.
-            </p>
-            <div class="card-tags" aria-label="Tags">
-              <span class="tag">Medicine</span>
-              <span class="tag">Precision</span>
-              <span class="tag">Craft</span>
-            </div>
-          </article>
-
-          <article class="work-card reveal rd3">
-            <div class="card-index" aria-hidden="true">03</div>
-            <h3 class="card-title">Tonight</h3>
-            <p class="card-desc">
-              A bedtime ritual that turns children into storytellers and parents
-              into characters. Every night is a new world. Every story is a
-              connection worth keeping.
-            </p>
-            <div class="card-tags" aria-label="Tags">
-              <span class="tag">Family</span>
-              <span class="tag">Storytelling</span>
-              <span class="tag">Connection</span>
-            </div>
-          </article>
 
         </div>
       </div>
