@@ -122,20 +122,6 @@
     .nav-brand {
       display: flex; align-items: center; gap: .7rem; text-decoration: none;
     }
-    .nav-logo-shell {
-      position: relative; overflow: hidden; border-radius: 8px;
-      box-shadow: 0 1px 5px rgba(0,0,0,.5);
-      flex-shrink: 0;
-    }
-    .nav-logo-shell::after {
-      content: ''; position: absolute; inset: 0;
-      background: rgba(61,107,79,.28); mix-blend-mode: multiply; pointer-events: none;
-    }
-    .nav-logo-shell img { height: 32px; width: auto; display: block; border-radius: 8px; }
-    .nav-wordmark {
-      font-family: var(--font-d); font-size: 1.1rem; font-weight: 500;
-      color: var(--text); letter-spacing: .03em;
-    }
     .nav-links { display: flex; align-items: center; gap: .25rem; list-style: none; }
     .nav-links a {
       color: var(--muted); text-decoration: none;
@@ -162,7 +148,6 @@
     }
     @media (max-width: 660px) {
       .nav-links { display: none; }
-      .nav-wordmark { display: none; }
     }
 
     /* ─── HERO ─── */
@@ -233,7 +218,7 @@
 
     /* ── Label above display text ── */
     .hero-studio {
-      font-size: .7rem; font-weight: 600; letter-spacing: .22em;
+      font-size: .9rem; font-weight: 600; letter-spacing: .22em;
       text-transform: uppercase; color: var(--muted);
       margin-bottom: 1.5rem;
       animation: fadeUp .8s .3s var(--ease) both;
@@ -260,7 +245,7 @@
     }
     .hero-duality span {
       font-family: var(--font-d); font-style: italic;
-      font-size: clamp(.875rem, 1.8vw, 1.05rem);
+      font-size: clamp(1rem, 2vw, 1.25rem);
       font-weight: 300; color: var(--muted); letter-spacing: .01em;
     }
     .duality-line {
@@ -271,47 +256,16 @@
 
     /* ── Tagline ── */
     .hero-tagline {
-      font-size: clamp(1rem, 2.2vw, 1.175rem);
+      font-size: clamp(1.125rem, 2.4vw, 1.35rem);
       color: var(--muted); max-width: 50ch; line-height: 1.8;
       margin-bottom: 3rem;
       animation: fadeUp .8s .75s var(--ease) both;
-    }
-
-    /* ── Hero CTAs ── */
-    .hero-ctas {
-      display: flex; align-items: center; gap: 1rem;
-      flex-wrap: wrap; justify-content: center;
-      animation: fadeUp .8s .9s var(--ease) both;
     }
 
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(22px); }
       to   { opacity: 1; transform: none; }
     }
-
-    .btn-primary {
-      display: inline-flex; align-items: center; gap: .5rem;
-      padding: .8rem 1.8rem;
-      background: var(--green); color: #fff;
-      font-size: .9375rem; font-weight: 600; font-family: var(--font-b);
-      border-radius: 100px; text-decoration: none;
-      transition: transform 240ms var(--ease), box-shadow 240ms var(--ease), background 220ms;
-      box-shadow: 0 4px 24px rgba(79,130,100,.35);
-    }
-    .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 36px rgba(79,130,100,.42);
-      background: #5f9672;
-    }
-    .btn-ghost {
-      display: inline-flex; align-items: center; gap: .5rem;
-      padding: .8rem 1.8rem;
-      border: 1px solid var(--border-2); color: var(--muted);
-      font-size: .9375rem; font-weight: 500; font-family: var(--font-b);
-      border-radius: 100px; text-decoration: none;
-      transition: color 220ms, border-color 220ms, transform 240ms var(--ease);
-    }
-    .btn-ghost:hover { color: var(--text); border-color: rgba(236,232,223,.24); transform: translateY(-2px); }
 
     /* ── Scroll cue ── */
     .scroll-cue {
@@ -538,10 +492,7 @@
   <nav id="site-nav" aria-label="Main navigation">
     <div class="nav-inner">
       <a href="#hero" class="nav-brand" aria-label="Opit Works home">
-        <span class="nav-logo-shell">
-          <img src="logo_opit.svg" alt="Opit Works logo">
-        </span>
-        <span class="nav-wordmark">Opit Works</span>
+        <img src="logo_opit.svg" alt="Opit Works logo" style="height:32px;width:auto;display:block;">
       </a>
       <ul class="nav-links" role="list">
         <li><a href="#philosophy">Philosophy</a></li>
@@ -578,14 +529,6 @@
           that transform everyday life into something playable — and something worth
           learning from.
         </p>
-
-        <div class="hero-ctas">
-          <a href="#work" class="btn-primary">
-            Explore the work
-            <span aria-hidden="true">↓</span>
-          </a>
-          <a href="#philosophy" class="btn-ghost">Our philosophy</a>
-        </div>
 
       </div>
 
