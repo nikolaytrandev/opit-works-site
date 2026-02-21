@@ -410,47 +410,6 @@
     }
     .phil-body p + p { margin-top: 1.25rem; }
 
-    /* ─── METHOD ─── */
-    #method { position: relative; overflow: hidden; }
-
-    .method-orb {
-      position: absolute; top: -20%; left: -15%;
-      width: min(60vw, 650px); height: min(60vw, 650px);
-      background: radial-gradient(circle,
-        var(--method-orb) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .method-intro {
-      max-width: 52ch; margin-bottom: 5rem;
-    }
-    .method-intro p {
-      font-size: 1.0625rem; color: var(--muted); line-height: 1.85;
-    }
-
-    .principles {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 3.5rem;
-    }
-    @media (max-width: 760px) {
-      .principles { grid-template-columns: 1fr; gap: 2.5rem; }
-    }
-
-    .principle { display: flex; flex-direction: column; gap: .875rem; }
-    .p-numeral {
-      font-family: var(--font-d); font-style: italic;
-      font-size: 4.5rem; font-weight: 300;
-      line-height: 1; letter-spacing: -.04em;
-      color: var(--border-2);
-    }
-    .p-title {
-      font-family: var(--font-d); font-size: 1.5rem; font-weight: 400;
-      color: var(--text); line-height: 1.2;
-    }
-    .p-body {
-      font-size: .9375rem; color: var(--muted); line-height: 1.78;
-    }
-
     /* ─── CONTACT ─── */
     #contact {
       text-align: center; position: relative; overflow: hidden;
@@ -543,7 +502,6 @@
       </div>
       <ul class="nav-links" role="list">
         <li><a href="#philosophy">Philosophy</a></li>
-        <li><a href="#method">Method</a></li>
         <li><a href="#contact" class="nav-cta">Let's talk</a></li>
       </ul>
     </div>
@@ -630,52 +588,6 @@
             </p>
           </div>
 
-        </div>
-      </div>
-    </section>
-
-    <!-- ── METHOD ── -->
-    <section id="method" aria-labelledby="method-heading">
-      <div class="method-orb" aria-hidden="true"></div>
-      <div class="container">
-        <p class="kicker reveal">Method</p>
-        <h2 class="section-headline reveal rd1" id="method-heading" style="margin-bottom:1.75rem;">
-          Designed like a game.<br><em>Built to last.</em>
-        </h2>
-        <div class="method-intro reveal rd2">
-          <p>
-            Every project starts the same way: find the one core action, build the
-            loop, choose the constraint that makes it repeatable. We don't design
-            delight as decoration — we design systems where the structure itself
-            creates meaning.
-          </p>
-        </div>
-
-        <div class="principles">
-          <div class="principle reveal rd2">
-            <div class="p-numeral" aria-hidden="true">I</div>
-            <h3 class="p-title">One core pattern</h3>
-            <p class="p-body">
-              Every great game reduces to a single repeatable action. We find that
-              action first — then build everything else around it.
-            </p>
-          </div>
-          <div class="principle reveal rd3">
-            <div class="p-numeral" aria-hidden="true">II</div>
-            <h3 class="p-title">A tight feedback loop</h3>
-            <p class="p-body">
-              Learning accelerates when the gap between action and consequence is
-              small. We design for rapid, honest feedback — not later, but now.
-            </p>
-          </div>
-          <div class="principle reveal rd4">
-            <div class="p-numeral" aria-hidden="true">III</div>
-            <h3 class="p-title">A real skill it strengthens</h3>
-            <p class="p-body">
-              Play without stakes is distraction. We anchor every system to a
-              genuine skill — one that transfers back into the world it came from.
-            </p>
-          </div>
         </div>
       </div>
     </section>
