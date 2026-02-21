@@ -1,28 +1,862 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Opit Works</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Opit Works is a small product studio exploring games and interactive experiences that help people learn through play.">
+  <title>Opit Works — Joy-driven systems.</title>
   <style>
+    /* ─── CSS Variables ─── */
+    :root {
+      --bg: #f5f4f1;
+      --panel: #ffffff;
+      --text: #1a1a1a;
+      --muted: #6b6b6b;
+      --border: #dddad4;
+      --accent: #3d6b4f;
+      --accent-hover: #2f5440;
+      --accent-light: #eaf3ee;
+      --shadow: 0 2px 12px rgba(0,0,0,0.07);
+      --radius: 10px;
+      --max-w: 760px;
+      --nav-h: 64px;
+      --transition: 200ms ease;
+    }
+
+    /* ─── Reset & Base ─── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
     body {
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #111;
-      color: #eee;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                   Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      background-image: radial-gradient(ellipse at 20% 0%, #d9ead3 0%, transparent 55%),
+                        radial-gradient(ellipse at 80% 100%, #dbe8f0 0%, transparent 55%);
+      background-attachment: fixed;
+      color: var(--text);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Accessibility: Skip Link ─── */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 1rem;
+      background: var(--accent);
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 0 0 var(--radius) var(--radius);
+      font-weight: 600;
+      text-decoration: none;
+      z-index: 9999;
+      transition: top var(--transition);
+    }
+    .skip-link:focus {
+      top: 0;
+    }
+
+    /* ─── Focus Styles ─── */
+    :focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    /* ─── Reduced Motion ─── */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* ─── Layout Utilities ─── */
+    .container {
+      width: 100%;
+      max-width: var(--max-w);
+      margin-inline: auto;
+      padding-inline: 1.5rem;
+    }
+
+    section {
+      padding-block: 5rem;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-size: clamp(1.6rem, 4vw, 2rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 1.25rem;
+    }
+
+    p {
+      color: var(--muted);
+      font-size: 1.0625rem;
+      max-width: 60ch;
+    }
+
+    p + p {
+      margin-top: 1rem;
+    }
+
+    /* ─── Buttons ─── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.6rem 1.35rem;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      font-family: inherit;
+      border-radius: 8px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform var(--transition),
+                  box-shadow var(--transition),
+                  background var(--transition),
+                  color var(--transition),
+                  border-color var(--transition);
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+      box-shadow: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      border-color: var(--accent-hover);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .btn-secondary:hover {
+      background: var(--accent-light);
+    }
+
+    /* ─── NAV ─── */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--nav-h);
+      background: transparent;
+      transition: background var(--transition),
+                  border-color var(--transition),
+                  backdrop-filter var(--transition);
+      border-bottom: 1px solid transparent;
+    }
+
+    .nav.scrolled {
+      background: rgba(245, 244, 241, 0.82);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom-color: var(--border);
+    }
+
+    .nav-inner {
+      max-width: calc(var(--max-w) + 3rem);
+      margin-inline: auto;
+      padding-inline: 1.5rem;
+      height: 100%;
       display: flex;
-      height: 100vh;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .nav-logo img {
+      height: 36px;
+      width: auto;
+      display: block;
+      border-radius: 6px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    .nav-links a:hover {
+      background: var(--accent-light);
+      color: var(--accent);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Mobile nav */
+    @media (max-width: 600px) {
+      .nav-links {
+        display: none;
+      }
+    }
+
+    /* ─── HERO ─── */
+    #hero {
+      padding-block: 6rem 5rem;
+      min-height: calc(90vh - var(--nav-h));
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-content {
+      max-width: var(--max-w);
+      margin-inline: auto;
+      padding-inline: 1.5rem;
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-light);
+      padding: 0.3rem 0.75rem;
+      border-radius: 100px;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-headline {
+      font-size: clamp(2.4rem, 8vw, 4rem);
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      line-height: 1.1;
+      color: var(--text);
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-subhead {
+      font-size: clamp(1rem, 2.5vw, 1.175rem);
+      color: var(--muted);
+      max-width: 52ch;
+      margin-bottom: 2.25rem;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-tagline {
+      font-size: 0.875rem;
+      color: var(--muted);
+      font-style: italic;
+      opacity: 0.8;
+    }
+
+    /* ─── ABOUT ─── */
+    #about {
+      border-top: 1px solid var(--border);
+    }
+
+    .about-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2.5rem;
+    }
+
+    /* ─── HOW WE WORK ─── */
+    #how-we-work {
+      border-top: 1px solid var(--border);
+    }
+
+    .how-intro {
+      margin-bottom: 2rem;
+    }
+
+    .steps-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 2.25rem;
+    }
+
+    .steps-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.1rem 1.35rem;
+      box-shadow: var(--shadow);
+      font-size: 1.0625rem;
+      font-weight: 600;
+      color: var(--text);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+
+    .steps-list li:hover {
+      transform: translateX(4px);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.09);
+    }
+
+    .step-num {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 800;
+      display: flex;
       align-items: center;
       justify-content: center;
-      text-align: center;
     }
-    h1 { font-size: 48px; }
-    p { opacity: 0.7; }
+
+    .callout {
+      background: var(--accent-light);
+      border: 1.5px solid #b5d9c2;
+      border-radius: var(--radius);
+      padding: 1.5rem 1.75rem;
+    }
+
+    .callout-label {
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .callout p {
+      color: var(--text);
+      font-size: 1rem;
+      font-style: italic;
+      max-width: none;
+    }
+
+    /* ─── CONTACT ─── */
+    #contact {
+      border-top: 1px solid var(--border);
+    }
+
+    .contact-intro {
+      margin-bottom: 2rem;
+    }
+
+    .contact-email {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--accent);
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 0.9375rem;
+      margin-top: 1.5rem;
+      padding: 0.3rem 0;
+      border-bottom: 1.5px solid var(--accent);
+      transition: opacity var(--transition);
+    }
+
+    .contact-email:hover {
+      opacity: 0.7;
+    }
+
+    .contact-form {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2rem 2.25rem;
+      margin-top: 2rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .form-group:last-of-type {
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    label .req {
+      color: var(--accent);
+      margin-left: 2px;
+    }
+
+    input, textarea {
+      font-family: inherit;
+      font-size: 0.9375rem;
+      color: var(--text);
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 7px;
+      padding: 0.6rem 0.85rem;
+      transition: border-color var(--transition), box-shadow var(--transition);
+      width: 100%;
+      -webkit-appearance: none;
+    }
+
+    input::placeholder, textarea::placeholder {
+      color: #aaa;
+    }
+
+    input:focus, textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(61,107,79,0.15);
+      outline: none;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .field-error {
+      font-size: 0.8rem;
+      color: #c0392b;
+      display: none;
+    }
+
+    .form-group.has-error input,
+    .form-group.has-error textarea {
+      border-color: #c0392b;
+    }
+
+    .form-group.has-error .field-error {
+      display: block;
+    }
+
+    .form-success {
+      display: none;
+      background: var(--accent-light);
+      border: 1.5px solid #b5d9c2;
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 0.9375rem;
+      margin-top: 1rem;
+    }
+
+    .form-success.visible {
+      display: block;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding-block: 2.5rem;
+    }
+
+    .footer-inner {
+      max-width: calc(var(--max-w) + 3rem);
+      margin-inline: auto;
+      padding-inline: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-copy {
+      font-size: 0.875rem;
+      color: var(--muted);
+    }
+
+    .footer-logo img {
+      height: 26px;
+      width: auto;
+      opacity: 0.35;
+      border-radius: 4px;
+      display: block;
+      transition: opacity var(--transition);
+    }
+
+    .footer-logo img:hover {
+      opacity: 0.6;
+    }
+
+    /* ─── Divider ─── */
+    hr.section-divider {
+      display: none;
+    }
+
+    /* ─── Responsive tweaks ─── */
+    @media (max-width: 500px) {
+      section { padding-block: 3.5rem; }
+      #hero { padding-block: 4rem 3rem; min-height: auto; }
+      .about-card { padding: 1.75rem 1.25rem; }
+      .contact-form { padding: 1.5rem 1.25rem; }
+      .callout { padding: 1.25rem; }
+    }
   </style>
 </head>
 <body>
-  <div>
-    <h1>Opit Works</h1>
-    <p>Experiment. Learn. Build with Joy.</p>
-  </div>
+
+  <!-- Skip to content -->
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- ─── NAV ─── -->
+  <header>
+    <nav class="nav" id="site-nav" aria-label="Main navigation">
+      <div class="nav-inner">
+        <a href="#hero" class="nav-logo" aria-label="Opit Works home">
+          <img src="logo.jpg" alt="Opit Works logo">
+        </a>
+        <ul class="nav-links" role="list">
+          <li><a href="#about">About</a></li>
+          <li><a href="#how-we-work">How we work</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="nav-right">
+          <a href="#contact" class="btn btn-primary">Start a project</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content">
+
+    <!-- ─── HERO ─── -->
+    <section id="hero" aria-labelledby="hero-headline">
+      <div class="hero-content">
+        <span class="hero-eyebrow">opitworks.ai</span>
+        <h1 class="hero-headline" id="hero-headline">Joy-driven systems.</h1>
+        <p class="hero-subhead">
+          Opit Works is a small product studio exploring games and interactive
+          experiences that help people learn through play.
+        </p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-primary">Start a project</a>
+          <a href="#how-we-work" class="btn btn-secondary">How we work</a>
+        </div>
+        <p class="hero-tagline">Small bets. Fast prototypes. High taste.</p>
+      </div>
+    </section>
+
+    <!-- ─── ABOUT ─── -->
+    <section id="about" aria-labelledby="about-heading">
+      <div class="container">
+        <p class="section-label">About</p>
+        <h2 id="about-heading">The word behind the work.</h2>
+        <div class="about-card">
+          <p>
+            Opit (опит) is a Bulgarian word that translates roughly to
+            <em>experience</em>, <em>attempt</em>, or <em>experiment</em>. It's the
+            kind of word you use when you're learning by doing—trying something,
+            paying attention, and getting a little better.
+          </p>
+          <p>
+            Opit Works is built around that idea: treat building as practice. Make
+            small, thoughtful things. Keep the loop tight. Let joy and learning
+            reinforce each other.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── HOW WE WORK ─── -->
+    <section id="how-we-work" aria-labelledby="how-heading">
+      <div class="container">
+        <p class="section-label">How we work</p>
+        <h2 id="how-heading">Designed like a game.</h2>
+        <p class="how-intro">
+          We design like game makers: define the core action, create a loop, and
+          choose constraints that make the experience repeatable.
+        </p>
+        <ul class="steps-list" role="list">
+          <li>
+            <span class="step-num" aria-hidden="true">1</span>
+            Prototype quickly
+          </li>
+          <li>
+            <span class="step-num" aria-hidden="true">2</span>
+            Test in real life
+          </li>
+          <li>
+            <span class="step-num" aria-hidden="true">3</span>
+            Iterate what people repeat
+          </li>
+        </ul>
+        <div class="callout" role="note">
+          <p class="callout-label">Favorite constraint</p>
+          <p>If it can't fit into 10 minutes, it's probably not the right shape (yet).</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── CONTACT ─── -->
+    <section id="contact" aria-labelledby="contact-heading">
+      <div class="container">
+        <p class="section-label">Contact</p>
+        <h2 id="contact-heading">Let's talk.</h2>
+        <p class="contact-intro">
+          Have something that should feel more like play and less like software?
+          Let's talk.
+        </p>
+
+        <div class="contact-form">
+          <form id="contact-form" novalidate>
+            <div class="form-group" id="group-name">
+              <label for="field-name">
+                Name <span class="req" aria-hidden="true">*</span>
+              </label>
+              <input
+                type="text"
+                id="field-name"
+                name="name"
+                autocomplete="name"
+                required
+                aria-required="true"
+                placeholder="Your name"
+              >
+              <span class="field-error" id="err-name" role="alert">Please enter your name.</span>
+            </div>
+
+            <div class="form-group" id="group-email">
+              <label for="field-email">
+                Email <span class="req" aria-hidden="true">*</span>
+              </label>
+              <input
+                type="email"
+                id="field-email"
+                name="email"
+                autocomplete="email"
+                required
+                aria-required="true"
+                placeholder="you@example.com"
+              >
+              <span class="field-error" id="err-email" role="alert">Please enter a valid email address.</span>
+            </div>
+
+            <div class="form-group" id="group-message">
+              <label for="field-message">
+                Message <span class="req" aria-hidden="true">*</span>
+              </label>
+              <textarea
+                id="field-message"
+                name="message"
+                required
+                aria-required="true"
+                placeholder="Tell us about your project…"
+              ></textarea>
+              <span class="field-error" id="err-message" role="alert">Please enter a message.</span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Send message</button>
+          </form>
+
+          <div class="form-success" id="form-success" aria-live="polite">
+            Your mail client is opening — we'll hear from you soon!
+          </div>
+        </div>
+
+        <a href="mailto:hello@opitworks.ai" class="contact-email" aria-label="Email hello@opitworks.ai">
+          hello@opitworks.ai
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ─── FOOTER ─── -->
+  <footer>
+    <div class="footer-inner">
+      <p class="footer-copy">&copy; <span id="year"></span> Opit Works</p>
+      <a href="#hero" class="footer-logo" aria-label="Back to top">
+        <img src="logo.jpg" alt="Opit Works">
+      </a>
+    </div>
+  </footer>
+
+  <script>
+    /* ─── Year ─── */
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    /* ─── Nav scroll class ─── */
+    var nav = document.getElementById('site-nav');
+    var SCROLL_THRESHOLD = 10;
+
+    function updateNav() {
+      if (window.scrollY > SCROLL_THRESHOLD) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    }
+
+    window.addEventListener('scroll', updateNav, { passive: true });
+    updateNav();
+
+    /* ─── Smooth scroll (respects reduced-motion) ─── */
+    var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    document.querySelectorAll('a[href^="#"]').forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        var targetId = this.getAttribute('href').slice(1);
+        var target = document.getElementById(targetId);
+        if (!target) return;
+        e.preventDefault();
+
+        if (prefersReducedMotion) {
+          target.scrollIntoView();
+        } else {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Move focus for accessibility
+        target.setAttribute('tabindex', '-1');
+        target.focus({ preventScroll: true });
+      });
+    });
+
+    /* ─── Form validation + mailto ─── */
+    var form = document.getElementById('contact-form');
+    var successMsg = document.getElementById('form-success');
+
+    function validateEmail(val) {
+      var atIdx = val.indexOf('@');
+      if (atIdx < 1) return false;
+      var afterAt = val.slice(atIdx + 1);
+      var dotIdx = afterAt.lastIndexOf('.');
+      return dotIdx >= 1 && dotIdx < afterAt.length - 1;
+    }
+
+    function setError(groupId, show) {
+      var group = document.getElementById(groupId);
+      if (show) {
+        group.classList.add('has-error');
+      } else {
+        group.classList.remove('has-error');
+      }
+    }
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      var nameVal    = document.getElementById('field-name').value.trim();
+      var emailVal   = document.getElementById('field-email').value.trim();
+      var messageVal = document.getElementById('field-message').value.trim();
+
+      var nameErr    = !nameVal;
+      var emailErr   = !validateEmail(emailVal);
+      var messageErr = !messageVal;
+
+      setError('group-name',    nameErr);
+      setError('group-email',   emailErr);
+      setError('group-message', messageErr);
+
+      if (nameErr || emailErr || messageErr) {
+        // Focus first error
+        if (nameErr)         document.getElementById('field-name').focus();
+        else if (emailErr)   document.getElementById('field-email').focus();
+        else                 document.getElementById('field-message').focus();
+        return;
+      }
+
+      // Build mailto
+      var subject = 'Opit Works inquiry';
+      var body = 'Name: ' + nameVal + '\n'
+               + 'Email: ' + emailVal + '\n\n'
+               + 'Message:\n' + messageVal;
+
+      var mailto = 'mailto:hello@opitworks.ai'
+                 + '?subject=' + encodeURIComponent(subject)
+                 + '&body='    + encodeURIComponent(body);
+
+      window.location.href = mailto;
+
+      successMsg.classList.add('visible');
+      form.reset();
+
+      setTimeout(function() {
+        successMsg.classList.remove('visible');
+      }, 6000);
+    });
+
+    // Clear errors on input
+    ['field-name', 'field-email', 'field-message'].forEach(function(id) {
+      document.getElementById(id).addEventListener('input', function() {
+        var groupId = 'group-' + id.replace('field-', '');
+        setError(groupId, false);
+      });
+    });
+  </script>
+
 </body>
 </html>
