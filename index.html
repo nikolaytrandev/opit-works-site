@@ -404,10 +404,6 @@
       border-top: 1px solid var(--border);
     }
 
-    .contact-intro {
-      margin-bottom: 2rem;
-    }
-
     .contact-email {
       display: inline-flex;
       align-items: center;
@@ -424,96 +420,6 @@
 
     .contact-email:hover {
       opacity: 0.7;
-    }
-
-    .contact-form {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 2rem 2.25rem;
-      margin-top: 2rem;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-      margin-bottom: 1.25rem;
-    }
-
-    .form-group:last-of-type {
-      margin-bottom: 1.5rem;
-    }
-
-    label {
-      font-size: 0.875rem;
-      font-weight: 600;
-      color: var(--text);
-    }
-
-    label .req {
-      color: var(--accent);
-      margin-left: 2px;
-    }
-
-    input, textarea {
-      font-family: inherit;
-      font-size: 0.9375rem;
-      color: var(--text);
-      background: var(--bg);
-      border: 1.5px solid var(--border);
-      border-radius: 7px;
-      padding: 0.6rem 0.85rem;
-      transition: border-color var(--transition), box-shadow var(--transition);
-      width: 100%;
-      -webkit-appearance: none;
-    }
-
-    input::placeholder, textarea::placeholder {
-      color: #aaa;
-    }
-
-    input:focus, textarea:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(61,107,79,0.15);
-      outline: none;
-    }
-
-    textarea {
-      resize: vertical;
-      min-height: 120px;
-    }
-
-    .field-error {
-      font-size: 0.8rem;
-      color: #c0392b;
-      display: none;
-    }
-
-    .form-group.has-error input,
-    .form-group.has-error textarea {
-      border-color: #c0392b;
-    }
-
-    .form-group.has-error .field-error {
-      display: block;
-    }
-
-    .form-success {
-      display: none;
-      background: var(--accent-light);
-      border: 1.5px solid #b5d9c2;
-      border-radius: 8px;
-      padding: 1rem 1.25rem;
-      color: var(--accent);
-      font-weight: 600;
-      font-size: 0.9375rem;
-      margin-top: 1rem;
-    }
-
-    .form-success.visible {
-      display: block;
     }
 
     /* ─── FOOTER ─── */
@@ -561,7 +467,6 @@
       section { padding-block: 3.5rem; }
       #hero { padding-block: 4rem 3rem; min-height: auto; }
       .about-card { padding: 1.75rem 1.25rem; }
-      .contact-form { padding: 1.5rem 1.25rem; }
       .callout { padding: 1.25rem; }
     }
   </style>
@@ -576,7 +481,7 @@
     <nav class="nav" id="site-nav" aria-label="Main navigation">
       <div class="nav-inner">
         <a href="#hero" class="nav-logo" aria-label="Opit Works home">
-          <img src="logo.jpg" alt="Opit Works logo">
+          <img src="https://raw.githubusercontent.com/nikolaytrandev/opit-works-site/main/logo.jpg" alt="Opit Works logo">
         </a>
         <ul class="nav-links" role="list">
           <li><a href="#about">About</a></li>
@@ -665,66 +570,10 @@
       <div class="container">
         <p class="section-label">Contact</p>
         <h2 id="contact-heading">Let's talk.</h2>
-        <p class="contact-intro">
+        <p>
           Have something that should feel more like play and less like software?
           Let's talk.
         </p>
-
-        <div class="contact-form">
-          <form id="contact-form" novalidate>
-            <div class="form-group" id="group-name">
-              <label for="field-name">
-                Name <span class="req" aria-hidden="true">*</span>
-              </label>
-              <input
-                type="text"
-                id="field-name"
-                name="name"
-                autocomplete="name"
-                required
-                aria-required="true"
-                placeholder="Your name"
-              >
-              <span class="field-error" id="err-name" role="alert">Please enter your name.</span>
-            </div>
-
-            <div class="form-group" id="group-email">
-              <label for="field-email">
-                Email <span class="req" aria-hidden="true">*</span>
-              </label>
-              <input
-                type="email"
-                id="field-email"
-                name="email"
-                autocomplete="email"
-                required
-                aria-required="true"
-                placeholder="you@example.com"
-              >
-              <span class="field-error" id="err-email" role="alert">Please enter a valid email address.</span>
-            </div>
-
-            <div class="form-group" id="group-message">
-              <label for="field-message">
-                Message <span class="req" aria-hidden="true">*</span>
-              </label>
-              <textarea
-                id="field-message"
-                name="message"
-                required
-                aria-required="true"
-                placeholder="Tell us about your project…"
-              ></textarea>
-              <span class="field-error" id="err-message" role="alert">Please enter a message.</span>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Send message</button>
-          </form>
-
-          <div class="form-success" id="form-success" aria-live="polite">
-            Your mail client is opening — we'll hear from you soon!
-          </div>
-        </div>
 
         <a href="mailto:hello@opitworks.ai" class="contact-email" aria-label="Email hello@opitworks.ai">
           hello@opitworks.ai
@@ -739,7 +588,7 @@
     <div class="footer-inner">
       <p class="footer-copy">&copy; <span id="year"></span> Opit Works</p>
       <a href="#hero" class="footer-logo" aria-label="Back to top">
-        <img src="logo.jpg" alt="Opit Works">
+        <img src="https://raw.githubusercontent.com/nikolaytrandev/opit-works-site/main/logo.jpg" alt="Opit Works">
       </a>
     </div>
   </footer>
@@ -785,77 +634,6 @@
       });
     });
 
-    /* ─── Form validation + mailto ─── */
-    var form = document.getElementById('contact-form');
-    var successMsg = document.getElementById('form-success');
-
-    function validateEmail(val) {
-      var atIdx = val.indexOf('@');
-      if (atIdx < 1) return false;
-      var afterAt = val.slice(atIdx + 1);
-      var dotIdx = afterAt.lastIndexOf('.');
-      return dotIdx >= 1 && dotIdx < afterAt.length - 1;
-    }
-
-    function setError(groupId, show) {
-      var group = document.getElementById(groupId);
-      if (show) {
-        group.classList.add('has-error');
-      } else {
-        group.classList.remove('has-error');
-      }
-    }
-
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-
-      var nameVal    = document.getElementById('field-name').value.trim();
-      var emailVal   = document.getElementById('field-email').value.trim();
-      var messageVal = document.getElementById('field-message').value.trim();
-
-      var nameErr    = !nameVal;
-      var emailErr   = !validateEmail(emailVal);
-      var messageErr = !messageVal;
-
-      setError('group-name',    nameErr);
-      setError('group-email',   emailErr);
-      setError('group-message', messageErr);
-
-      if (nameErr || emailErr || messageErr) {
-        // Focus first error
-        if (nameErr)         document.getElementById('field-name').focus();
-        else if (emailErr)   document.getElementById('field-email').focus();
-        else                 document.getElementById('field-message').focus();
-        return;
-      }
-
-      // Build mailto
-      var subject = 'Opit Works inquiry';
-      var body = 'Name: ' + nameVal + '\n'
-               + 'Email: ' + emailVal + '\n\n'
-               + 'Message:\n' + messageVal;
-
-      var mailto = 'mailto:hello@opitworks.ai'
-                 + '?subject=' + encodeURIComponent(subject)
-                 + '&body='    + encodeURIComponent(body);
-
-      window.location.href = mailto;
-
-      successMsg.classList.add('visible');
-      form.reset();
-
-      setTimeout(function() {
-        successMsg.classList.remove('visible');
-      }, 6000);
-    });
-
-    // Clear errors on input
-    ['field-name', 'field-email', 'field-message'].forEach(function(id) {
-      document.getElementById(id).addEventListener('input', function() {
-        var groupId = 'group-' + id.replace('field-', '');
-        setError(groupId, false);
-      });
-    });
   </script>
 
 </body>
