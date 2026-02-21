@@ -310,6 +310,33 @@
       color: var(--muted);
       font-style: italic;
       opacity: 0.8;
+      margin-bottom: 2rem;
+    }
+
+    .hero-logo-wrap {
+      position: relative;
+      display: block;
+      width: fit-content;
+      margin-inline: auto;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-logo-wrap img {
+      display: block;
+      height: 180px;
+      width: auto;
+      border-radius: 14px;
+    }
+
+    .hero-logo-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(61, 107, 79, 0.28);
+      mix-blend-mode: multiply;
+      pointer-events: none;
     }
 
     /* ─── ABOUT ─── */
@@ -488,9 +515,7 @@
           <li><a href="#how-we-work">How we work</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
-        <div class="nav-right">
-          <a href="#contact" class="btn btn-primary">Start a project</a>
-        </div>
+        <div class="nav-right"></div>
       </div>
     </nav>
   </header>
@@ -506,11 +531,10 @@
           Opit Works is a small product studio exploring games and interactive
           experiences that help people learn through play.
         </p>
-        <div class="hero-actions">
-          <a href="#contact" class="btn btn-primary">Start a project</a>
-          <a href="#how-we-work" class="btn btn-secondary">How we work</a>
-        </div>
         <p class="hero-tagline">Small bets. Fast prototypes. High taste.</p>
+        <div class="hero-logo-wrap">
+          <img src="https://raw.githubusercontent.com/nikolaytrandev/opit-works-site/main/logo.jpg" alt="Opit Works logo">
+        </div>
       </div>
     </section>
 
