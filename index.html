@@ -3,48 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Opit Works is a small product studio exploring games and interactive experiences that help people learn through play.">
-  <title>Opit Works — Joy-driven systems.</title>
+  <meta name="description" content="Opit Studio — a small, independent product studio building interactive systems where play sharpens skill and experiment becomes lived experience.">
+  <title>Opit Studio — опит</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    /* ─── CSS Variables ─── */
+    /* ─── Variables ─── */
     :root {
-      --bg: #f4f3f0;
-      --panel: #ffffff;
-      --text: #111111;
-      --muted: #65655f;
-      --border: #e2dfd8;
-      --accent: #3a6648;
-      --accent-2: #2f5440;
-      --accent-light: #e8f2ec;
-      --accent-glow: rgba(58, 102, 72, 0.12);
-      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05), 0 2px 8px rgba(0,0,0,0.05);
-      --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 6px 24px rgba(0,0,0,0.08);
-      --shadow-lg: 0 4px 8px rgba(0,0,0,0.05), 0 16px 48px rgba(0,0,0,0.12);
-      --radius: 14px;
-      --radius-sm: 8px;
-      --max-w: 760px;
-      --nav-h: 64px;
+      --bg:          #0d0c0a;
+      --surface:     #151412;
+      --surface-2:   #1c1b18;
+      --text:        #ece8df;
+      --muted:       #7c776e;
+      --dim:         #45413b;
+      --gold:        #c8a870;
+      --gold-dim:    rgba(200,168,112,0.12);
+      --gold-border: rgba(200,168,112,0.22);
+      --green:       #4f8264;
+      --green-dim:   rgba(79,130,100,0.12);
+      --violet:      #7a6fa0;
+      --border:      rgba(236,232,223,0.07);
+      --border-2:    rgba(236,232,223,0.12);
+      --font-d: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+      --font-b: 'Inter', system-ui, -apple-system, sans-serif;
       --ease: cubic-bezier(0.16, 1, 0.3, 1);
-      --transition: 220ms var(--ease);
+      --nav-h: 68px;
+      --max-w: 1060px;
     }
 
-    /* ─── Reset & Base ─── */
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      font-size: 16px;
-    }
-
+    /* ─── Reset ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: var(--font-b);
       background: var(--bg);
       color: var(--text);
       line-height: 1.65;
@@ -52,770 +44,853 @@
       overflow-x: hidden;
     }
 
-    /* Ambient background gradients */
-    body::before {
+    /* Grain overlay */
+    body::after {
       content: '';
       position: fixed;
       inset: 0;
-      background:
-        radial-gradient(ellipse 80% 55% at 8% -8%,  rgba(160, 210, 175, 0.55) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 45% at 92% 108%, rgba(170, 205, 230, 0.45) 0%, transparent 60%),
-        radial-gradient(ellipse 45% 30% at 52% 60%,  rgba(220, 238, 215, 0.28) 0%, transparent 70%);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
       pointer-events: none;
-      z-index: -1;
+      z-index: 9998;
     }
 
-    /* ─── Skip link ─── */
+    /* ─── Accessibility ─── */
     .skip-link {
-      position: absolute;
-      top: -100%;
-      left: 1rem;
-      background: var(--accent);
-      color: #fff;
-      padding: 0.5rem 1rem;
-      border-radius: 0 0 var(--radius-sm) var(--radius-sm);
-      font-weight: 600;
-      text-decoration: none;
-      z-index: 9999;
-      transition: top var(--transition);
+      position: absolute; top: -100%; left: 1rem;
+      background: var(--gold); color: var(--bg);
+      padding: .5rem 1rem; border-radius: 0 0 6px 6px;
+      font-weight: 600; text-decoration: none; z-index: 10000;
+      transition: top 200ms;
     }
     .skip-link:focus { top: 0; }
+    :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 3px; }
 
-    /* ─── Focus ─── */
-    :focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 3px;
-      border-radius: 4px;
-    }
-
-    /* ─── Reduced Motion ─── */
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       *, *::before, *::after {
         animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
       }
     }
 
     /* ─── Layout ─── */
-    .container {
-      width: 100%;
-      max-width: var(--max-w);
-      margin-inline: auto;
-      padding-inline: 1.5rem;
-    }
+    .container { max-width: var(--max-w); margin-inline: auto; padding-inline: 2rem; }
 
-    section {
-      padding-block: 5.5rem;
-    }
-
-    /* ─── Reveal animation ─── */
+    /* ─── Reveal ─── */
     .reveal {
       opacity: 0;
       transform: translateY(28px);
-      transition: opacity 650ms var(--ease), transform 650ms var(--ease);
+      transition: opacity 700ms var(--ease), transform 700ms var(--ease);
     }
-    .reveal.visible {
-      opacity: 1;
-      transform: none;
-    }
-    .reveal-delay-1 { transition-delay: 100ms; }
-    .reveal-delay-2 { transition-delay: 200ms; }
-    .reveal-delay-3 { transition-delay: 300ms; }
+    .reveal.visible { opacity: 1; transform: none; }
+    .rd1 { transition-delay: 80ms; }
+    .rd2 { transition-delay: 170ms; }
+    .rd3 { transition-delay: 260ms; }
+    .rd4 { transition-delay: 350ms; }
+    .rd5 { transition-delay: 440ms; }
 
-    /* ─── Section label ─── */
-    .section-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.875rem;
+    /* ─── Section kicker ─── */
+    .kicker {
+      display: inline-flex; align-items: center; gap: .6rem;
+      font-size: .68rem; font-weight: 600; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 1.25rem;
     }
-    .section-label::before {
-      content: '';
-      display: block;
-      width: 18px;
-      height: 2px;
-      background: var(--accent);
-      border-radius: 2px;
-    }
-
-    h2 {
-      font-size: clamp(1.75rem, 4.5vw, 2.25rem);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      color: var(--text);
-      margin-bottom: 1.25rem;
-      line-height: 1.15;
-    }
-
-    p {
-      color: var(--muted);
-      font-size: 1.0625rem;
-      max-width: 58ch;
-      line-height: 1.75;
-    }
-
-    p + p {
-      margin-top: 1rem;
+    .kicker::before {
+      content: ''; display: block;
+      width: 20px; height: 1.5px;
+      background: var(--gold); opacity: .55;
     }
 
     /* ─── NAV ─── */
-    .nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       height: var(--nav-h);
-      transition: background 300ms ease, border-color 300ms ease, backdrop-filter 300ms ease;
+      transition: background 300ms, border-color 300ms;
       border-bottom: 1px solid transparent;
     }
-
-    .nav.scrolled {
-      background: rgba(244, 243, 240, 0.88);
-      backdrop-filter: blur(16px) saturate(1.5);
-      -webkit-backdrop-filter: blur(16px) saturate(1.5);
+    nav.scrolled {
+      background: rgba(13,12,10,.92);
+      backdrop-filter: blur(20px) saturate(1.6);
+      -webkit-backdrop-filter: blur(20px) saturate(1.6);
       border-bottom-color: var(--border);
     }
-
     .nav-inner {
-      max-width: calc(var(--max-w) + 3rem);
-      margin-inline: auto;
-      padding-inline: 1.5rem;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
+      max-width: var(--max-w); margin-inline: auto; padding-inline: 2rem;
+      height: 100%; display: flex; align-items: center; justify-content: space-between;
     }
-
     .nav-brand {
-      display: flex;
-      align-items: center;
-      gap: 0.65rem;
-      text-decoration: none;
+      display: flex; align-items: center; gap: .7rem; text-decoration: none;
+    }
+    .nav-logo-shell {
+      position: relative; overflow: hidden; border-radius: 8px;
+      box-shadow: 0 1px 5px rgba(0,0,0,.5);
       flex-shrink: 0;
     }
-
-    .nav-logo-wrap {
-      position: relative;
-      overflow: hidden;
-      border-radius: 8px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.12);
-      flex-shrink: 0;
+    .nav-logo-shell::after {
+      content: ''; position: absolute; inset: 0;
+      background: rgba(61,107,79,.28); mix-blend-mode: multiply; pointer-events: none;
     }
-
-    .nav-logo-wrap::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(61, 107, 79, 0.28);
-      mix-blend-mode: multiply;
-      pointer-events: none;
+    .nav-logo-shell img { height: 32px; width: auto; display: block; border-radius: 8px; }
+    .nav-wordmark {
+      font-family: var(--font-d); font-size: 1.1rem; font-weight: 500;
+      color: var(--text); letter-spacing: .03em;
     }
-
-    .nav-logo-wrap img {
-      height: 34px;
-      width: auto;
-      display: block;
-      border-radius: 8px;
-    }
-
-    .nav-brand-name {
-      font-size: 0.9375rem;
-      font-weight: 700;
-      color: var(--text);
-      letter-spacing: -0.02em;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 0.125rem;
-      list-style: none;
-    }
-
+    .nav-links { display: flex; align-items: center; gap: .25rem; list-style: none; }
     .nav-links a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 0.875rem;
-      font-weight: 500;
-      padding: 0.4rem 0.8rem;
-      border-radius: var(--radius-sm);
-      transition: background var(--transition), color var(--transition);
+      color: var(--muted); text-decoration: none;
+      font-size: .875rem; font-weight: 500;
+      padding: .4rem .85rem; border-radius: 6px;
+      transition: color 200ms, background 200ms;
     }
-
-    .nav-links a:hover {
-      background: var(--accent-light);
-      color: var(--accent);
-    }
-
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
+    .nav-links a:hover { color: var(--text); background: rgba(255,255,255,.05); }
     .nav-cta {
-      display: inline-flex;
-      align-items: center;
-      padding: 0.4rem 1.1rem;
-      background: var(--accent);
-      color: #fff;
-      font-size: 0.875rem;
-      font-weight: 600;
+      display: inline-flex; align-items: center;
+      padding: .42rem 1.1rem;
+      background: var(--gold-dim);
+      color: var(--gold) !important;
+      border: 1px solid var(--gold-border);
       border-radius: 100px;
+      font-size: .875rem; font-weight: 600;
       text-decoration: none;
-      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+      transition: background 200ms, transform 220ms var(--ease), box-shadow 220ms;
     }
-
     .nav-cta:hover {
-      background: var(--accent-2);
+      background: rgba(200,168,112,.2) !important;
       transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(58, 102, 72, 0.3);
+      box-shadow: 0 4px 16px rgba(200,168,112,.15);
     }
-
-    @media (max-width: 640px) {
+    @media (max-width: 660px) {
       .nav-links { display: none; }
-      .nav-brand-name { display: none; }
+      .nav-wordmark { display: none; }
     }
 
     /* ─── HERO ─── */
     #hero {
-      padding-block: 7rem 5rem;
-      min-height: calc(92vh - var(--nav-h));
-      display: flex;
-      align-items: center;
-      position: relative;
-      overflow: hidden;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      position: relative; overflow: hidden;
+      padding: calc(var(--nav-h) + 4rem) 2rem 6rem;
     }
 
-    /* Decorative ambient orb */
+    /* Breathing ambient glow */
+    #hero::before {
+      content: '';
+      position: absolute;
+      top: -10%; left: 50%; transform: translateX(-50%);
+      width: min(90vw, 900px); height: min(90vw, 900px);
+      background: radial-gradient(circle,
+        rgba(79,130,100,.14) 0%,
+        rgba(200,168,112,.05) 38%,
+        transparent 68%);
+      pointer-events: none;
+      animation: heroGlow 6s ease-in-out infinite;
+    }
+    @keyframes heroGlow {
+      0%, 100% { opacity: .8; transform: translateX(-50%) scale(1); }
+      50%       { opacity: 1;  transform: translateX(-50%) scale(1.06); }
+    }
+
+    /* Horizontal rule lines in background */
     #hero::after {
       content: '';
-      position: absolute;
-      top: -140px;
-      right: -220px;
-      width: 640px;
-      height: 640px;
-      background: radial-gradient(circle, rgba(58, 102, 72, 0.09) 0%, transparent 70%);
-      border-radius: 50%;
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(transparent calc(50% - 1px), rgba(236,232,223,.03) calc(50% - 1px), rgba(236,232,223,.03) 50%, transparent 50%),
+        linear-gradient(90deg, transparent calc(50% - 1px), rgba(236,232,223,.03) calc(50% - 1px), rgba(236,232,223,.03) 50%, transparent 50%);
       pointer-events: none;
     }
 
-    .hero-content {
-      max-width: var(--max-w);
-      margin-inline: auto;
-      padding-inline: 1.5rem;
+    .hero-inner {
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column; align-items: center;
+    }
+
+    /* ── Logo ── */
+    .hero-logo-shell {
       position: relative;
-      z-index: 1;
+      border-radius: 26px;
+      overflow: hidden;
+      margin-bottom: 2.75rem;
+      box-shadow:
+        0 0 0 1px rgba(79,130,100,.3),
+        0 0 80px rgba(79,130,100,.22),
+        0 0 160px rgba(79,130,100,.08),
+        0 28px 80px rgba(0,0,0,.7);
+      animation: logoIn 1s var(--ease) both;
+    }
+    .hero-logo-shell::after {
+      content: ''; position: absolute; inset: 0;
+      background: rgba(61,107,79,.28); mix-blend-mode: multiply; pointer-events: none;
+    }
+    .hero-logo-shell img {
+      height: 148px; width: auto; display: block; border-radius: 26px;
+    }
+    @keyframes logoIn {
+      from { opacity: 0; transform: scale(.84) translateY(20px); filter: blur(8px); }
+      to   { opacity: 1; transform: none; filter: none; }
     }
 
-    .hero-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.55rem;
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-      color: var(--accent);
-      border: 1.5px solid rgba(58, 102, 72, 0.28);
-      padding: 0.3rem 0.9rem 0.3rem 0.65rem;
-      border-radius: 100px;
-      margin-bottom: 1.75rem;
-      background: rgba(232, 242, 236, 0.65);
-      backdrop-filter: blur(8px);
-    }
-
-    .eyebrow-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--accent);
-      flex-shrink: 0;
-      animation: pulse-dot 2.5s ease-in-out infinite;
-    }
-
-    @keyframes pulse-dot {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50%       { opacity: 0.35; transform: scale(0.65); }
-    }
-
-    .hero-headline {
-      font-size: clamp(2.8rem, 9vw, 4.75rem);
-      font-weight: 900;
-      letter-spacing: -0.04em;
-      line-height: 1.05;
-      color: var(--text);
+    /* ── Label above display text ── */
+    .hero-studio {
+      font-size: .7rem; font-weight: 600; letter-spacing: .22em;
+      text-transform: uppercase; color: var(--muted);
       margin-bottom: 1.5rem;
+      animation: fadeUp .8s .3s var(--ease) both;
     }
 
-    .text-gradient {
-      background: linear-gradient(135deg, #3a6648 0%, #5faa78 50%, #3a6648 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero-subhead {
-      font-size: clamp(1.0625rem, 2.5vw, 1.2rem);
-      color: var(--muted);
-      max-width: 48ch;
-      margin-bottom: 2.5rem;
-      line-height: 1.75;
-    }
-
-    .hero-tagline {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.875rem;
-      color: var(--muted);
-      font-style: italic;
-    }
-
-    .hero-tagline::before {
-      content: '✦';
-      font-style: normal;
-      font-size: 0.6rem;
-      color: var(--accent);
-      opacity: 0.6;
-    }
-
-    /* ─── ABOUT ─── */
-    #about {
-      border-top: 1px solid var(--border);
-    }
-
-    .about-card {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-left: 4px solid var(--accent);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 2.5rem 2.75rem;
-      position: relative;
-      overflow: hidden;
-      transition: box-shadow var(--transition), transform var(--transition);
-    }
-
-    .about-card:hover {
-      box-shadow: var(--shadow-lg);
-      transform: translateY(-2px);
-    }
-
-    /* Decorative quote mark */
-    .about-card::before {
-      content: '\201C';
-      position: absolute;
-      top: -0.75rem;
-      right: 1.25rem;
-      font-size: 9rem;
-      line-height: 1;
-      color: var(--accent);
-      opacity: 0.055;
-      font-family: Georgia, serif;
-      pointer-events: none;
-      user-select: none;
-    }
-
-    .about-card em {
-      color: var(--accent);
-      font-style: normal;
-      font-weight: 600;
-    }
-
-    /* ─── HOW WE WORK ─── */
-    #how-we-work {
-      border-top: 1px solid var(--border);
-    }
-
-    .how-intro {
-      margin-bottom: 2.5rem;
-    }
-
-    .steps-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      margin-bottom: 2.5rem;
-      position: relative;
-    }
-
-    /* Vertical connector line */
-    .steps-list::before {
-      content: '';
-      position: absolute;
-      left: 19px;
-      top: 40px;
-      bottom: 40px;
-      width: 1.5px;
-      background: linear-gradient(to bottom,
-        var(--accent) 0%,
-        rgba(58, 102, 72, 0.12) 100%);
-      pointer-events: none;
-    }
-
-    .steps-list li {
-      display: flex;
-      align-items: center;
-      gap: 1.25rem;
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.25rem 1.5rem;
-      font-size: 1.0625rem;
-      font-weight: 600;
+    /* ── Giant display word ── */
+    .hero-display {
+      font-family: var(--font-d);
+      font-size: clamp(5.5rem, 17vw, 13rem);
+      font-weight: 300;
+      line-height: .92;
+      letter-spacing: -.025em;
       color: var(--text);
-      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
-      position: relative;
+      margin-bottom: .6rem;
+      animation: fadeUp 1s .42s var(--ease) both;
     }
+    .hero-display .hl { font-style: italic; color: var(--gold); }
 
-    .steps-list li:hover {
-      transform: translateX(6px);
-      box-shadow: var(--shadow);
-      border-color: rgba(58, 102, 72, 0.25);
+    /* ── Duality ── */
+    .hero-duality {
+      display: flex; align-items: center; gap: 1.1rem;
+      margin-bottom: 2.75rem;
+      animation: fadeUp .8s .62s var(--ease) both;
     }
-
-    .step-num {
+    .hero-duality span {
+      font-family: var(--font-d); font-style: italic;
+      font-size: clamp(.875rem, 1.8vw, 1.05rem);
+      font-weight: 300; color: var(--muted); letter-spacing: .01em;
+    }
+    .duality-line {
+      width: 28px; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--dim), transparent);
       flex-shrink: 0;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: var(--accent);
-      color: #fff;
-      font-size: 0.8rem;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 2px 8px rgba(58, 102, 72, 0.28);
-      position: relative;
-      z-index: 1;
     }
 
-    .callout {
-      background: linear-gradient(135deg, var(--accent-light) 0%, rgba(232, 242, 236, 0.4) 100%);
-      border: 1.5px solid rgba(58, 102, 72, 0.18);
-      border-radius: var(--radius);
-      padding: 1.75rem 2rem;
-      position: relative;
-      overflow: hidden;
+    /* ── Tagline ── */
+    .hero-tagline {
+      font-size: clamp(1rem, 2.2vw, 1.175rem);
+      color: var(--muted); max-width: 50ch; line-height: 1.8;
+      margin-bottom: 3rem;
+      animation: fadeUp .8s .75s var(--ease) both;
     }
 
-    .callout::after {
-      content: '✦';
-      position: absolute;
-      top: 1rem;
-      right: 1.5rem;
-      font-size: 2.5rem;
-      color: var(--accent);
-      opacity: 0.1;
+    /* ── Hero CTAs ── */
+    .hero-ctas {
+      display: flex; align-items: center; gap: 1rem;
+      flex-wrap: wrap; justify-content: center;
+      animation: fadeUp .8s .9s var(--ease) both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .8rem 1.8rem;
+      background: var(--green); color: #fff;
+      font-size: .9375rem; font-weight: 600; font-family: var(--font-b);
+      border-radius: 100px; text-decoration: none;
+      transition: transform 240ms var(--ease), box-shadow 240ms var(--ease), background 220ms;
+      box-shadow: 0 4px 24px rgba(79,130,100,.35);
+    }
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 36px rgba(79,130,100,.42);
+      background: #5f9672;
+    }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .8rem 1.8rem;
+      border: 1px solid var(--border-2); color: var(--muted);
+      font-size: .9375rem; font-weight: 500; font-family: var(--font-b);
+      border-radius: 100px; text-decoration: none;
+      transition: color 220ms, border-color 220ms, transform 240ms var(--ease);
+    }
+    .btn-ghost:hover { color: var(--text); border-color: rgba(236,232,223,.24); transform: translateY(-2px); }
+
+    /* ── Scroll cue ── */
+    .scroll-cue {
+      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: .5rem;
+      color: var(--dim); font-size: .65rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase;
+      animation: fadeUp .8s 1.2s var(--ease) both;
+    }
+    .scroll-wire {
+      width: 1px; height: 44px;
+      background: linear-gradient(to bottom, var(--dim) 0%, transparent 100%);
+      animation: wirePulse 2.2s ease-in-out infinite;
+    }
+    @keyframes wirePulse {
+      0%, 100% { transform: scaleY(1);   opacity: .5; }
+      50%       { transform: scaleY(.55); opacity: 1; }
+    }
+
+    /* ─── SHARED SECTION ─── */
+    section { padding-block: 7rem; border-top: 1px solid var(--border); }
+
+    .section-headline {
+      font-family: var(--font-d);
+      font-size: clamp(2rem, 4.5vw, 3.25rem);
+      font-weight: 400; letter-spacing: -.025em;
+      color: var(--text); line-height: 1.15;
+    }
+    .section-headline em { font-style: italic; color: var(--muted); }
+    .section-headline .hl { font-style: italic; color: var(--gold); }
+
+    /* ─── PHILOSOPHY ─── */
+    #philosophy { position: relative; overflow: hidden; }
+
+    .philosophy-orb {
+      position: absolute; bottom: -30%; right: -10%;
+      width: min(65vw, 700px); height: min(65vw, 700px);
+      background: radial-gradient(circle,
+        rgba(200,168,112,.05) 0%, transparent 68%);
       pointer-events: none;
     }
 
-    .callout-label {
-      font-size: 0.68rem;
-      font-weight: 800;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.5rem;
+    .philosophy-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem 6rem; align-items: start;
+    }
+    @media (max-width: 760px) {
+      .philosophy-grid { grid-template-columns: 1fr; gap: 3.5rem; }
     }
 
-    .callout p {
-      color: var(--text);
-      font-size: 1rem;
-      font-style: italic;
-      max-width: none;
-      font-weight: 500;
+    .phil-quote {
+      font-family: var(--font-d);
+      font-size: clamp(1.9rem, 3.5vw, 2.75rem);
+      font-weight: 400; line-height: 1.22;
+      color: var(--text); letter-spacing: -.015em;
+    }
+    .phil-quote .hl { color: var(--gold); font-style: italic; }
+
+    .phil-word-card {
+      margin-top: 2.5rem;
+      padding: 1.5rem 1.75rem;
+      border: 1px solid var(--gold-border);
+      border-radius: 14px;
+      background: var(--gold-dim);
+    }
+    .phil-word-bg {
+      font-family: var(--font-d);
+      font-size: 2.75rem; font-weight: 300;
+      color: var(--gold); line-height: 1; margin-bottom: .2rem;
+    }
+    .phil-word-phonetic {
+      font-size: .78rem; color: var(--muted); font-style: italic; margin-bottom: 1rem;
+    }
+    .phil-meanings { display: flex; flex-direction: column; gap: .4rem; }
+    .phil-meaning {
+      display: flex; align-items: center; gap: .6rem;
+      font-size: .85rem; color: var(--muted); line-height: 1.5;
+    }
+    .phil-meaning::before {
+      content: ''; flex-shrink: 0;
+      width: 4px; height: 4px; border-radius: 50%;
+      background: var(--gold); opacity: .55;
+    }
+
+    .phil-body { padding-top: .25rem; }
+    .phil-body p {
+      font-size: 1rem; color: var(--muted); line-height: 1.88; max-width: 50ch;
+    }
+    .phil-body p + p { margin-top: 1.25rem; }
+
+    /* ─── WORK ─── */
+    #work { position: relative; }
+
+    .work-header { margin-bottom: 4rem; }
+
+    .work-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+    @media (max-width: 860px) {
+      .work-grid { grid-template-columns: 1fr; }
+    }
+
+    .work-card {
+      position: relative;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 2.25rem;
+      display: flex; flex-direction: column; gap: 1.25rem;
+      overflow: hidden;
+      transition: transform 300ms var(--ease), box-shadow 300ms, border-color 300ms;
+    }
+    /* Top accent bar via pseudo */
+    .work-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      border-radius: 18px 18px 0 0;
+    }
+    .work-card:nth-child(1)::before { background: var(--gold); }
+    .work-card:nth-child(2)::before { background: var(--green); }
+    .work-card:nth-child(3)::before { background: var(--violet); }
+
+    .work-card:nth-child(1):hover { border-color: rgba(200,168,112,.22); }
+    .work-card:nth-child(2):hover { border-color: rgba(79,130,100,.22); }
+    .work-card:nth-child(3):hover { border-color: rgba(122,111,160,.22); }
+
+    .work-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 60px rgba(0,0,0,.45);
+    }
+
+    .card-index {
+      font-family: var(--font-d); font-style: italic;
+      font-size: .95rem; font-weight: 300; color: var(--dim);
+    }
+    .card-title {
+      font-family: var(--font-d);
+      font-size: 1.875rem; font-weight: 400;
+      color: var(--text); letter-spacing: -.015em; line-height: 1.15;
+    }
+    .card-desc {
+      font-size: .9375rem; color: var(--muted); line-height: 1.78; flex: 1;
+    }
+    .card-tags { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .tag {
+      font-size: .67rem; font-weight: 600; letter-spacing: .07em; text-transform: uppercase;
+      padding: .22rem .65rem;
+      border-radius: 100px; border: 1px solid var(--border-2);
+      color: var(--dim);
+    }
+
+    /* ─── METHOD ─── */
+    #method { position: relative; overflow: hidden; }
+
+    .method-orb {
+      position: absolute; top: -20%; left: -15%;
+      width: min(60vw, 650px); height: min(60vw, 650px);
+      background: radial-gradient(circle,
+        rgba(79,130,100,.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .method-intro {
+      max-width: 52ch; margin-bottom: 5rem;
+    }
+    .method-intro p {
+      font-size: 1.0625rem; color: var(--muted); line-height: 1.85;
+    }
+
+    .principles {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 3.5rem;
+    }
+    @media (max-width: 760px) {
+      .principles { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+
+    .principle { display: flex; flex-direction: column; gap: .875rem; }
+    .p-numeral {
+      font-family: var(--font-d); font-style: italic;
+      font-size: 4.5rem; font-weight: 300;
+      line-height: 1; letter-spacing: -.04em;
+      color: var(--border-2);
+    }
+    .p-title {
+      font-family: var(--font-d); font-size: 1.5rem; font-weight: 400;
+      color: var(--text); line-height: 1.2;
+    }
+    .p-body {
+      font-size: .9375rem; color: var(--muted); line-height: 1.78;
     }
 
     /* ─── CONTACT ─── */
     #contact {
-      border-top: 1px solid var(--border);
+      text-align: center; position: relative; overflow: hidden;
     }
-
-    .contact-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin-top: 2rem;
-      padding: 0.875rem 1.875rem;
-      background: var(--accent);
-      color: #fff;
-      font-weight: 600;
-      text-decoration: none;
-      font-size: 1rem;
-      border-radius: 100px;
-      transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
-      box-shadow: 0 2px 12px rgba(58, 102, 72, 0.25);
-    }
-
-    .contact-cta:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 32px rgba(58, 102, 72, 0.35);
-      background: var(--accent-2);
-    }
-
-    .contact-arrow {
-      display: inline-block;
-      transition: transform var(--transition);
-    }
-
-    .contact-cta:hover .contact-arrow {
-      transform: translateX(4px);
-    }
-
-    /* ─── FOOTER ─── */
-    footer {
-      border-top: 1px solid var(--border);
-      padding-block: 2.5rem;
-    }
-
-    .footer-inner {
-      max-width: calc(var(--max-w) + 3rem);
-      margin-inline: auto;
-      padding-inline: 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .footer-copy {
-      font-size: 0.875rem;
-      color: var(--muted);
-    }
-
-    .footer-logo {
-      position: relative;
-      display: inline-block;
-      overflow: hidden;
-      border-radius: 6px;
-      transition: transform var(--transition), box-shadow var(--transition);
-    }
-
-    .footer-logo::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(61, 107, 79, 0.28);
-      mix-blend-mode: multiply;
+    .contact-orb {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      width: min(75vw, 750px); height: min(75vw, 750px);
+      background: radial-gradient(circle,
+        rgba(79,130,100,.09) 0%, transparent 68%);
       pointer-events: none;
     }
-
-    .footer-logo img {
-      height: 26px;
-      width: auto;
-      opacity: 0.4;
-      border-radius: 6px;
-      display: block;
-      transition: opacity var(--transition);
+    .contact-inner { position: relative; z-index: 1; }
+    .contact-headline {
+      font-family: var(--font-d);
+      font-size: clamp(2.5rem, 6vw, 4.75rem);
+      font-weight: 300; letter-spacing: -.03em;
+      line-height: 1.1; color: var(--text);
+      margin-bottom: 1.25rem;
     }
-
-    .footer-logo:hover img {
-      opacity: 0.7;
+    .contact-headline .hl { color: var(--gold); font-style: italic; }
+    .contact-sub {
+      font-size: 1.0625rem; color: var(--muted);
+      max-width: 46ch; margin-inline: auto; line-height: 1.8;
+      margin-bottom: 3rem;
     }
-
-    .footer-logo:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    .contact-email {
+      display: inline-flex; align-items: center; gap: .55rem;
+      padding: .9rem 2rem;
+      background: var(--green); color: #fff;
+      font-size: 1rem; font-weight: 600; font-family: var(--font-b);
+      border-radius: 100px; text-decoration: none;
+      box-shadow: 0 4px 24px rgba(79,130,100,.32);
+      transition: transform 240ms var(--ease), box-shadow 240ms, background 220ms;
     }
+    .contact-email:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 38px rgba(79,130,100,.42);
+      background: #5f9672;
+    }
+    .contact-arrow {
+      display: inline-block;
+      transition: transform 240ms var(--ease);
+    }
+    .contact-email:hover .contact-arrow { transform: translateX(4px); }
 
-    /* ─── Responsive ─── */
-    @media (max-width: 500px) {
-      section { padding-block: 4rem; }
-      #hero { padding-block: 5rem 4rem; min-height: auto; }
-      .about-card { padding: 1.75rem 1.5rem; }
-      .callout { padding: 1.25rem 1.5rem; }
+    /* ─── FOOTER ─── */
+    footer { border-top: 1px solid var(--border); padding-block: 2.5rem; }
+    .footer-inner {
+      max-width: var(--max-w); margin-inline: auto; padding-inline: 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; flex-wrap: wrap;
+    }
+    .footer-brand {
+      display: flex; align-items: center; gap: .65rem; text-decoration: none;
+    }
+    .footer-logo-shell {
+      position: relative; overflow: hidden; border-radius: 6px;
+      transition: transform 220ms var(--ease);
+    }
+    .footer-logo-shell::after {
+      content: ''; position: absolute; inset: 0;
+      background: rgba(61,107,79,.28); mix-blend-mode: multiply; pointer-events: none;
+    }
+    .footer-logo-shell img {
+      height: 24px; width: auto; display: block;
+      opacity: .45; border-radius: 6px;
+      transition: opacity 220ms;
+    }
+    .footer-brand:hover .footer-logo-shell { transform: translateY(-1px); }
+    .footer-brand:hover .footer-logo-shell img { opacity: .7; }
+    .footer-name {
+      font-family: var(--font-d); font-size: 1rem; font-weight: 400;
+      color: var(--muted); letter-spacing: .02em;
+    }
+    .footer-right {
+      display: flex; align-items: center; gap: 1.5rem;
+      font-size: .8125rem; color: var(--dim);
+    }
+    .footer-copy { font-family: var(--font-d); font-style: italic; }
+
+    /* ─── Responsive misc ─── */
+    @media (max-width: 520px) {
+      section { padding-block: 5rem; }
+      .container { padding-inline: 1.25rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Skip to content -->
   <a class="skip-link" href="#main-content">Skip to main content</a>
 
-  <!-- ─── NAV ─── -->
-  <header>
-    <nav class="nav" id="site-nav" aria-label="Main navigation">
-      <div class="nav-inner">
-        <a href="#hero" class="nav-brand" aria-label="Opit Works home">
-          <span class="nav-logo-wrap">
-            <img src="https://raw.githubusercontent.com/nikolaytrandev/opit-works-site/main/logo.jpg" alt="Opit Works logo">
-          </span>
-          <span class="nav-brand-name" aria-hidden="true">Opit Works</span>
-        </a>
-        <ul class="nav-links" role="list">
-          <li><a href="#about">About</a></li>
-          <li><a href="#how-we-work">How we work</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-        <div class="nav-right">
-          <a href="#contact" class="nav-cta">Say hello</a>
-        </div>
-      </div>
-    </nav>
-  </header>
+  <!-- ── NAV ── -->
+  <nav id="site-nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-brand" aria-label="Opit Studio home">
+        <span class="nav-logo-shell">
+          <img src="https://raw.githubusercontent.com/nikolaytrandev/opit-works-site/main/logo.jpg" alt="Opit Studio logo">
+        </span>
+        <span class="nav-wordmark">Opit Studio</span>
+      </a>
+      <ul class="nav-links" role="list">
+        <li><a href="#philosophy">Philosophy</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#method">Method</a></li>
+        <li><a href="#contact" class="nav-cta">Let's talk</a></li>
+      </ul>
+    </div>
+  </nav>
 
   <main id="main-content">
 
-    <!-- ─── HERO ─── -->
-    <section id="hero" aria-labelledby="hero-headline">
-      <div class="hero-content">
-        <span class="hero-eyebrow">
-          <span class="eyebrow-dot" aria-hidden="true"></span>
-          opitworks.ai
-        </span>
-        <h1 class="hero-headline" id="hero-headline">
-          <span class="text-gradient">Joy-driven</span> systems.
+    <!-- ── HERO ── -->
+    <section id="hero" aria-labelledby="hero-title">
+      <div class="hero-inner">
+
+        <div class="hero-logo-shell" role="img" aria-label="Opit Studio logo">
+          <img src="https://raw.githubusercontent.com/nikolaytrandev/opit-works-site/main/logo.jpg" alt="">
+        </div>
+
+        <p class="hero-studio">Opit Studio</p>
+
+        <h1 class="hero-display" id="hero-title" aria-label="Opit">
+          <span class="hl">оп</span>ит
         </h1>
-        <p class="hero-subhead">
-          Opit Works is a small product studio exploring games and interactive
-          experiences that help people learn through play.
+
+        <div class="hero-duality" aria-label="what you've lived through — what you dare to try">
+          <span>what you've lived through</span>
+          <span class="duality-line" aria-hidden="true"></span>
+          <span>what you dare to try</span>
+        </div>
+
+        <p class="hero-tagline">
+          A small, independent studio building interactive tools, games, and systems
+          that transform everyday life into something playable — and something worth
+          learning from.
         </p>
-        <p class="hero-tagline">Small bets. Fast prototypes. High taste.</p>
+
+        <div class="hero-ctas">
+          <a href="#work" class="btn-primary">
+            Explore the work
+            <span aria-hidden="true">↓</span>
+          </a>
+          <a href="#philosophy" class="btn-ghost">Our philosophy</a>
+        </div>
+
+      </div>
+
+      <div class="scroll-cue" aria-hidden="true">
+        <div class="scroll-wire"></div>
+        <span>scroll</span>
       </div>
     </section>
 
-    <!-- ─── ABOUT ─── -->
-    <section id="about" aria-labelledby="about-heading">
+    <!-- ── PHILOSOPHY ── -->
+    <section id="philosophy" aria-labelledby="phil-heading">
+      <div class="philosophy-orb" aria-hidden="true"></div>
       <div class="container">
-        <p class="section-label reveal">About</p>
-        <h2 id="about-heading" class="reveal reveal-delay-1">The word behind the work.</h2>
-        <div class="about-card reveal reveal-delay-2">
-          <p>
-            Opit (опит) is a Bulgarian word that translates roughly to
-            <em>experience</em>, <em>attempt</em>, or <em>experiment</em>. It's the
-            kind of word you use when you're learning by doing—trying something,
-            paying attention, and getting a little better.
-          </p>
-          <p>
-            Opit Works is built around that idea: treat building as practice. Make
-            small, thoughtful things. Keep the loop tight. Let joy and learning
-            reinforce each other.
-          </p>
+        <div class="philosophy-grid">
+
+          <div>
+            <p class="kicker reveal">Philosophy</p>
+            <blockquote class="phil-quote reveal rd1" id="phil-heading">
+              Joy is not the opposite of seriousness.
+              It is the most <span class="hl">powerful delivery
+              mechanism</span> for it.
+            </blockquote>
+
+            <div class="phil-word-card reveal rd2">
+              <div class="phil-word-bg">опит</div>
+              <div class="phil-word-phonetic">/ˈo.pit/ &nbsp;·&nbsp; Bulgarian</div>
+              <div class="phil-meanings">
+                <span class="phil-meaning">experience — something lived, accumulated, earned</span>
+                <span class="phil-meaning">experiment — something tried, risked, attempted</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="phil-body reveal rd2">
+            <p>
+              The name carries a tension on purpose. Opit Studio exists at the
+              intersection of what you've already lived through and what you're
+              still willing to try. That's where real learning happens — not in
+              passive consumption, but in playful encounter.
+            </p>
+            <p>
+              We build interactive tools, games, and systems that transform the
+              texture of everyday life into something practised. Each project is
+              designed around a single core pattern, a tight feedback loop, and
+              a real-world skill it quietly strengthens.
+            </p>
+            <p>
+              Rather than chasing scale for its own sake, we pursue small, durable
+              creations that serve real markets from an unexpected angle. Constraint
+              isn't a limitation — it's the game mechanic that makes things worth
+              playing.
+            </p>
+          </div>
+
         </div>
       </div>
     </section>
 
-    <!-- ─── HOW WE WORK ─── -->
-    <section id="how-we-work" aria-labelledby="how-heading">
+    <!-- ── WORK ── -->
+    <section id="work" aria-labelledby="work-heading">
       <div class="container">
-        <p class="section-label reveal">How we work</p>
-        <h2 id="how-heading" class="reveal reveal-delay-1">Designed like a game.</h2>
-        <p class="how-intro reveal reveal-delay-2">
-          We design like game makers: define the core action, create a loop, and
-          choose constraints that make the experience repeatable.
-        </p>
-        <ul class="steps-list reveal reveal-delay-3" role="list">
-          <li>
-            <span class="step-num" aria-hidden="true">1</span>
-            Prototype quickly
-          </li>
-          <li>
-            <span class="step-num" aria-hidden="true">2</span>
-            Test in real life
-          </li>
-          <li>
-            <span class="step-num" aria-hidden="true">3</span>
-            Iterate what people repeat
-          </li>
-        </ul>
-        <div class="callout reveal" role="note">
-          <p class="callout-label">Favorite constraint</p>
-          <p>If it can't fit into 10 minutes, it's probably not the right shape (yet).</p>
+        <div class="work-header">
+          <p class="kicker reveal">Selected work</p>
+          <h2 class="section-headline reveal rd1" id="work-heading">
+            Small bets.<br><em>Unexpected angles.</em>
+          </h2>
+        </div>
+
+        <div class="work-grid">
+
+          <article class="work-card reveal rd1">
+            <div class="card-index" aria-hidden="true">01</div>
+            <h3 class="card-title">Meno</h3>
+            <p class="card-desc">
+              A game that reframes menopause as a hero's journey through biology.
+              Hormonal change becomes a system to understand and master — not an
+              ordeal to survive.
+            </p>
+            <div class="card-tags" aria-label="Tags">
+              <span class="tag">Health</span>
+              <span class="tag">Mastery</span>
+              <span class="tag">Play</span>
+            </div>
+          </article>
+
+          <article class="work-card reveal rd2">
+            <div class="card-index" aria-hidden="true">02</div>
+            <h3 class="card-title">Loop</h3>
+            <p class="card-desc">
+              A peer-learning platform for surgeons built around annotated video.
+              Precision is social — the best operations become lessons that travel
+              through a community of practice.
+            </p>
+            <div class="card-tags" aria-label="Tags">
+              <span class="tag">Medicine</span>
+              <span class="tag">Precision</span>
+              <span class="tag">Craft</span>
+            </div>
+          </article>
+
+          <article class="work-card reveal rd3">
+            <div class="card-index" aria-hidden="true">03</div>
+            <h3 class="card-title">Tonight</h3>
+            <p class="card-desc">
+              A bedtime ritual that turns children into storytellers and parents
+              into characters. Every night is a new world. Every story is a
+              connection worth keeping.
+            </p>
+            <div class="card-tags" aria-label="Tags">
+              <span class="tag">Family</span>
+              <span class="tag">Storytelling</span>
+              <span class="tag">Connection</span>
+            </div>
+          </article>
+
         </div>
       </div>
     </section>
 
-    <!-- ─── CONTACT ─── -->
+    <!-- ── METHOD ── -->
+    <section id="method" aria-labelledby="method-heading">
+      <div class="method-orb" aria-hidden="true"></div>
+      <div class="container">
+        <p class="kicker reveal">Method</p>
+        <h2 class="section-headline reveal rd1" id="method-heading" style="margin-bottom:1.75rem;">
+          Designed like a game.<br><em>Built to last.</em>
+        </h2>
+        <div class="method-intro reveal rd2">
+          <p>
+            Every project starts the same way: find the one core action, build the
+            loop, choose the constraint that makes it repeatable. We don't design
+            delight as decoration — we design systems where the structure itself
+            creates meaning.
+          </p>
+        </div>
+
+        <div class="principles">
+          <div class="principle reveal rd2">
+            <div class="p-numeral" aria-hidden="true">I</div>
+            <h3 class="p-title">One core pattern</h3>
+            <p class="p-body">
+              Every great game reduces to a single repeatable action. We find that
+              action first — then build everything else around it.
+            </p>
+          </div>
+          <div class="principle reveal rd3">
+            <div class="p-numeral" aria-hidden="true">II</div>
+            <h3 class="p-title">A tight feedback loop</h3>
+            <p class="p-body">
+              Learning accelerates when the gap between action and consequence is
+              small. We design for rapid, honest feedback — not later, but now.
+            </p>
+          </div>
+          <div class="principle reveal rd4">
+            <div class="p-numeral" aria-hidden="true">III</div>
+            <h3 class="p-title">A real skill it strengthens</h3>
+            <p class="p-body">
+              Play without stakes is distraction. We anchor every system to a
+              genuine skill — one that transfers back into the world it came from.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CONTACT ── -->
     <section id="contact" aria-labelledby="contact-heading">
+      <div class="contact-orb" aria-hidden="true"></div>
       <div class="container">
-        <p class="section-label reveal">Contact</p>
-        <h2 id="contact-heading" class="reveal reveal-delay-1">Let's talk.</h2>
-        <p class="reveal reveal-delay-2">
-          Have something that should feel more like play and less like software?
-          Let's talk.
-        </p>
-        <a href="mailto:hello@opitworks.ai" class="contact-cta reveal reveal-delay-3" aria-label="Email hello@opitworks.ai">
-          hello@opitworks.ai
-          <span class="contact-arrow" aria-hidden="true">→</span>
-        </a>
+        <div class="contact-inner">
+          <p class="kicker reveal" style="justify-content:center;">Contact</p>
+          <h2 class="contact-headline reveal rd1" id="contact-heading">
+            Let's build something<br><span class="hl">worth playing.</span>
+          </h2>
+          <p class="contact-sub reveal rd2">
+            Have an idea that should feel more like a game and less like software?
+            A market nobody's approached from a playful angle yet? Let's talk.
+          </p>
+          <div class="reveal rd3">
+            <a href="mailto:hello@opitworks.ai" class="contact-email" aria-label="Email hello@opitworks.ai">
+              hello@opitworks.ai
+              <span class="contact-arrow" aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
       </div>
     </section>
 
   </main>
 
-  <!-- ─── FOOTER ─── -->
+  <!-- ── FOOTER ── -->
   <footer>
     <div class="footer-inner">
-      <p class="footer-copy">&copy; <span id="year"></span> Opit Works</p>
-      <a href="#hero" class="footer-logo" aria-label="Back to top">
-        <img src="https://raw.githubusercontent.com/nikolaytrandev/opit-works-site/main/logo.jpg" alt="Opit Works">
+      <a href="#hero" class="footer-brand" aria-label="Opit Studio — back to top">
+        <span class="footer-logo-shell">
+          <img src="https://raw.githubusercontent.com/nikolaytrandev/opit-works-site/main/logo.jpg" alt="Opit Studio">
+        </span>
+        <span class="footer-name">Opit Studio</span>
       </a>
+      <div class="footer-right">
+        <span class="footer-copy">&copy; <span id="year"></span> Opit Studio &nbsp;·&nbsp; опит</span>
+      </div>
     </div>
   </footer>
 
   <script>
-    /* ─── Year ─── */
+    /* Year */
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    /* ─── Nav scroll class ─── */
+    /* Nav scroll */
     var nav = document.getElementById('site-nav');
-    function updateNav() {
-      nav.classList.toggle('scrolled', window.scrollY > 10);
-    }
-    window.addEventListener('scroll', updateNav, { passive: true });
-    updateNav();
+    window.addEventListener('scroll', function () {
+      nav.classList.toggle('scrolled', window.scrollY > 24);
+    }, { passive: true });
 
-    /* ─── Reveal on scroll ─── */
+    /* Reveal on scroll */
     if ('IntersectionObserver' in window) {
-      var observer = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
+      var obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
           if (entry.isIntersecting) {
             entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
+            obs.unobserve(entry.target);
           }
         });
-      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-
-      document.querySelectorAll('.reveal').forEach(function(el) {
-        observer.observe(el);
-      });
+      }, { threshold: 0.1, rootMargin: '0px 0px -48px 0px' });
+      document.querySelectorAll('.reveal').forEach(function (el) { obs.observe(el); });
     } else {
-      /* Fallback: show all immediately */
-      document.querySelectorAll('.reveal').forEach(function(el) {
-        el.classList.add('visible');
-      });
+      document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('visible'); });
     }
 
-    /* ─── Smooth scroll (respects reduced-motion) ─── */
-    var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    document.querySelectorAll('a[href^="#"]').forEach(function(link) {
-      link.addEventListener('click', function(e) {
-        var targetId = this.getAttribute('href').slice(1);
-        var target = document.getElementById(targetId);
-        if (!target) return;
+    /* Smooth scroll */
+    var pref = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        var id = this.getAttribute('href').slice(1);
+        var el = document.getElementById(id);
+        if (!el) return;
         e.preventDefault();
-
-        if (prefersReducedMotion) {
-          target.scrollIntoView();
-        } else {
-          target.scrollIntoView({ behavior: 'smooth' });
-        }
-
-        target.setAttribute('tabindex', '-1');
-        target.focus({ preventScroll: true });
+        pref ? el.scrollIntoView() : el.scrollIntoView({ behavior: 'smooth' });
+        el.setAttribute('tabindex', '-1');
+        el.focus({ preventScroll: true });
       });
     });
   </script>
