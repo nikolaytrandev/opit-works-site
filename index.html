@@ -5,22 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Opit Works is a small product studio exploring games and interactive experiences that help people learn through play.">
   <title>Opit Works — Joy-driven systems.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
   <style>
     /* ─── CSS Variables ─── */
     :root {
-      --bg: #f5f4f1;
+      --bg: #f4f3f0;
       --panel: #ffffff;
-      --text: #1a1a1a;
-      --muted: #6b6b6b;
-      --border: #dddad4;
-      --accent: #3d6b4f;
-      --accent-hover: #2f5440;
-      --accent-light: #eaf3ee;
-      --shadow: 0 2px 12px rgba(0,0,0,0.07);
-      --radius: 10px;
+      --text: #111111;
+      --muted: #65655f;
+      --border: #e2dfd8;
+      --accent: #3a6648;
+      --accent-2: #2f5440;
+      --accent-light: #e8f2ec;
+      --accent-glow: rgba(58, 102, 72, 0.12);
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05), 0 2px 8px rgba(0,0,0,0.05);
+      --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 6px 24px rgba(0,0,0,0.08);
+      --shadow-lg: 0 4px 8px rgba(0,0,0,0.05), 0 16px 48px rgba(0,0,0,0.12);
+      --radius: 14px;
+      --radius-sm: 8px;
       --max-w: 760px;
       --nav-h: 64px;
-      --transition: 200ms ease;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+      --transition: 220ms var(--ease);
     }
 
     /* ─── Reset & Base ─── */
@@ -36,18 +44,28 @@
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-                   Helvetica, Arial, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background: var(--bg);
-      background-image: radial-gradient(ellipse at 20% 0%, #d9ead3 0%, transparent 55%),
-                        radial-gradient(ellipse at 80% 100%, #dbe8f0 0%, transparent 55%);
-      background-attachment: fixed;
       color: var(--text);
       line-height: 1.65;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
-    /* ─── Accessibility: Skip Link ─── */
+    /* Ambient background gradients */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 55% at 8% -8%,  rgba(160, 210, 175, 0.55) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 45% at 92% 108%, rgba(170, 205, 230, 0.45) 0%, transparent 60%),
+        radial-gradient(ellipse 45% 30% at 52% 60%,  rgba(220, 238, 215, 0.28) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    /* ─── Skip link ─── */
     .skip-link {
       position: absolute;
       top: -100%;
@@ -55,19 +73,17 @@
       background: var(--accent);
       color: #fff;
       padding: 0.5rem 1rem;
-      border-radius: 0 0 var(--radius) var(--radius);
+      border-radius: 0 0 var(--radius-sm) var(--radius-sm);
       font-weight: 600;
       text-decoration: none;
       z-index: 9999;
       transition: top var(--transition);
     }
-    .skip-link:focus {
-      top: 0;
-    }
+    .skip-link:focus { top: 0; }
 
-    /* ─── Focus Styles ─── */
+    /* ─── Focus ─── */
     :focus-visible {
-      outline: 3px solid var(--accent);
+      outline: 2px solid var(--accent);
       outline-offset: 3px;
       border-radius: 4px;
     }
@@ -82,7 +98,7 @@
       }
     }
 
-    /* ─── Layout Utilities ─── */
+    /* ─── Layout ─── */
     .container {
       width: 100%;
       max-width: var(--max-w);
@@ -91,86 +107,62 @@
     }
 
     section {
-      padding-block: 5rem;
+      padding-block: 5.5rem;
     }
 
+    /* ─── Reveal animation ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 650ms var(--ease), transform 650ms var(--ease);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+    .reveal-delay-1 { transition-delay: 100ms; }
+    .reveal-delay-2 { transition-delay: 200ms; }
+    .reveal-delay-3 { transition-delay: 300ms; }
+
+    /* ─── Section label ─── */
     .section-label {
-      font-size: 0.75rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.7rem;
       font-weight: 700;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--accent);
-      margin-bottom: 1rem;
+      margin-bottom: 0.875rem;
+    }
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 18px;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 2px;
     }
 
     h2 {
-      font-size: clamp(1.6rem, 4vw, 2rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
+      font-size: clamp(1.75rem, 4.5vw, 2.25rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
       color: var(--text);
       margin-bottom: 1.25rem;
+      line-height: 1.15;
     }
 
     p {
       color: var(--muted);
       font-size: 1.0625rem;
-      max-width: 60ch;
+      max-width: 58ch;
+      line-height: 1.75;
     }
 
     p + p {
       margin-top: 1rem;
-    }
-
-    /* ─── Buttons ─── */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      padding: 0.6rem 1.35rem;
-      font-size: 0.9375rem;
-      font-weight: 600;
-      font-family: inherit;
-      border-radius: 8px;
-      border: 2px solid transparent;
-      cursor: pointer;
-      text-decoration: none;
-      transition: transform var(--transition),
-                  box-shadow var(--transition),
-                  background var(--transition),
-                  color var(--transition),
-                  border-color var(--transition);
-      white-space: nowrap;
-    }
-
-    .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
-    }
-
-    .btn:active {
-      transform: translateY(0);
-      box-shadow: none;
-    }
-
-    .btn-primary {
-      background: var(--accent);
-      color: #fff;
-      border-color: var(--accent);
-    }
-
-    .btn-primary:hover {
-      background: var(--accent-hover);
-      border-color: var(--accent-hover);
-    }
-
-    .btn-secondary {
-      background: transparent;
-      color: var(--accent);
-      border-color: var(--accent);
-    }
-
-    .btn-secondary:hover {
-      background: var(--accent-light);
     }
 
     /* ─── NAV ─── */
@@ -179,17 +171,14 @@
       top: 0;
       z-index: 100;
       height: var(--nav-h);
-      background: transparent;
-      transition: background var(--transition),
-                  border-color var(--transition),
-                  backdrop-filter var(--transition);
+      transition: background 300ms ease, border-color 300ms ease, backdrop-filter 300ms ease;
       border-bottom: 1px solid transparent;
     }
 
     .nav.scrolled {
-      background: rgba(245, 244, 241, 0.82);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(244, 243, 240, 0.88);
+      backdrop-filter: blur(16px) saturate(1.5);
+      -webkit-backdrop-filter: blur(16px) saturate(1.5);
       border-bottom-color: var(--border);
     }
 
@@ -204,18 +193,23 @@
       gap: 1rem;
     }
 
-    .nav-logo {
-      position: relative;
+    .nav-brand {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.65rem;
       text-decoration: none;
       flex-shrink: 0;
-      overflow: hidden;
-      border-radius: 6px;
     }
 
-    .nav-logo::after {
+    .nav-logo-wrap {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+      flex-shrink: 0;
+    }
+
+    .nav-logo-wrap::after {
       content: '';
       position: absolute;
       inset: 0;
@@ -224,27 +218,34 @@
       pointer-events: none;
     }
 
-    .nav-logo img {
-      height: 36px;
+    .nav-logo-wrap img {
+      height: 34px;
       width: auto;
       display: block;
-      border-radius: 6px;
+      border-radius: 8px;
+    }
+
+    .nav-brand-name {
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.02em;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 0.25rem;
+      gap: 0.125rem;
       list-style: none;
     }
 
     .nav-links a {
-      color: var(--text);
+      color: var(--muted);
       text-decoration: none;
-      font-size: 0.9rem;
+      font-size: 0.875rem;
       font-weight: 500;
-      padding: 0.4rem 0.75rem;
-      border-radius: 6px;
+      padding: 0.4rem 0.8rem;
+      border-radius: var(--radius-sm);
       transition: background var(--transition), color var(--transition);
     }
 
@@ -259,69 +260,131 @@
       gap: 0.5rem;
     }
 
-    /* Mobile nav */
-    @media (max-width: 600px) {
-      .nav-links {
-        display: none;
-      }
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.4rem 1.1rem;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.875rem;
+      font-weight: 600;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+    }
+
+    .nav-cta:hover {
+      background: var(--accent-2);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(58, 102, 72, 0.3);
+    }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .nav-brand-name { display: none; }
     }
 
     /* ─── HERO ─── */
     #hero {
-      padding-block: 6rem 5rem;
-      min-height: calc(90vh - var(--nav-h));
+      padding-block: 7rem 5rem;
+      min-height: calc(92vh - var(--nav-h));
       display: flex;
       align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Decorative ambient orb */
+    #hero::after {
+      content: '';
+      position: absolute;
+      top: -140px;
+      right: -220px;
+      width: 640px;
+      height: 640px;
+      background: radial-gradient(circle, rgba(58, 102, 72, 0.09) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
     }
 
     .hero-content {
       max-width: var(--max-w);
       margin-inline: auto;
       padding-inline: 1.5rem;
+      position: relative;
+      z-index: 1;
     }
 
     .hero-eyebrow {
-      display: inline-block;
-      font-size: 0.8rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.09em;
       text-transform: uppercase;
       color: var(--accent);
-      background: var(--accent-light);
-      padding: 0.3rem 0.75rem;
+      border: 1.5px solid rgba(58, 102, 72, 0.28);
+      padding: 0.3rem 0.9rem 0.3rem 0.65rem;
       border-radius: 100px;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.75rem;
+      background: rgba(232, 242, 236, 0.65);
+      backdrop-filter: blur(8px);
+    }
+
+    .eyebrow-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+      animation: pulse-dot 2.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.35; transform: scale(0.65); }
     }
 
     .hero-headline {
-      font-size: clamp(2.4rem, 8vw, 4rem);
-      font-weight: 800;
-      letter-spacing: -0.035em;
-      line-height: 1.1;
+      font-size: clamp(2.8rem, 9vw, 4.75rem);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1.05;
       color: var(--text);
-      margin-bottom: 1.25rem;
-    }
-
-    .hero-subhead {
-      font-size: clamp(1rem, 2.5vw, 1.175rem);
-      color: var(--muted);
-      max-width: 52ch;
-      margin-bottom: 2.25rem;
-      line-height: 1.7;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
       margin-bottom: 1.5rem;
     }
 
+    .text-gradient {
+      background: linear-gradient(135deg, #3a6648 0%, #5faa78 50%, #3a6648 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subhead {
+      font-size: clamp(1.0625rem, 2.5vw, 1.2rem);
+      color: var(--muted);
+      max-width: 48ch;
+      margin-bottom: 2.5rem;
+      line-height: 1.75;
+    }
+
     .hero-tagline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
       font-size: 0.875rem;
       color: var(--muted);
       font-style: italic;
-      opacity: 0.8;
+    }
+
+    .hero-tagline::before {
+      content: '✦';
+      font-style: normal;
+      font-size: 0.6rem;
+      color: var(--accent);
+      opacity: 0.6;
     }
 
     /* ─── ABOUT ─── */
@@ -332,9 +395,39 @@
     .about-card {
       background: var(--panel);
       border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      padding: 2.5rem;
+      padding: 2.5rem 2.75rem;
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+
+    .about-card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-2px);
+    }
+
+    /* Decorative quote mark */
+    .about-card::before {
+      content: '\201C';
+      position: absolute;
+      top: -0.75rem;
+      right: 1.25rem;
+      font-size: 9rem;
+      line-height: 1;
+      color: var(--accent);
+      opacity: 0.055;
+      font-family: Georgia, serif;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .about-card em {
+      color: var(--accent);
+      font-style: normal;
+      font-weight: 600;
     }
 
     /* ─── HOW WE WORK ─── */
@@ -343,62 +436,94 @@
     }
 
     .how-intro {
-      margin-bottom: 2rem;
+      margin-bottom: 2.5rem;
     }
 
     .steps-list {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
-      margin-bottom: 2.25rem;
+      gap: 0.5rem;
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+
+    /* Vertical connector line */
+    .steps-list::before {
+      content: '';
+      position: absolute;
+      left: 19px;
+      top: 40px;
+      bottom: 40px;
+      width: 1.5px;
+      background: linear-gradient(to bottom,
+        var(--accent) 0%,
+        rgba(58, 102, 72, 0.12) 100%);
+      pointer-events: none;
     }
 
     .steps-list li {
       display: flex;
-      align-items: flex-start;
-      gap: 1rem;
+      align-items: center;
+      gap: 1.25rem;
       background: var(--panel);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 1.1rem 1.35rem;
-      box-shadow: var(--shadow);
+      padding: 1.25rem 1.5rem;
       font-size: 1.0625rem;
       font-weight: 600;
       color: var(--text);
-      transition: transform var(--transition), box-shadow var(--transition);
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+      position: relative;
     }
 
     .steps-list li:hover {
-      transform: translateX(4px);
-      box-shadow: 0 4px 16px rgba(0,0,0,0.09);
+      transform: translateX(6px);
+      box-shadow: var(--shadow);
+      border-color: rgba(58, 102, 72, 0.25);
     }
 
     .step-num {
       flex-shrink: 0;
-      width: 28px;
-      height: 28px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       background: var(--accent);
       color: #fff;
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       font-weight: 800;
       display: flex;
       align-items: center;
       justify-content: center;
+      box-shadow: 0 2px 8px rgba(58, 102, 72, 0.28);
+      position: relative;
+      z-index: 1;
     }
 
     .callout {
-      background: var(--accent-light);
-      border: 1.5px solid #b5d9c2;
+      background: linear-gradient(135deg, var(--accent-light) 0%, rgba(232, 242, 236, 0.4) 100%);
+      border: 1.5px solid rgba(58, 102, 72, 0.18);
       border-radius: var(--radius);
-      padding: 1.5rem 1.75rem;
+      padding: 1.75rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .callout::after {
+      content: '✦';
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      font-size: 2.5rem;
+      color: var(--accent);
+      opacity: 0.1;
+      pointer-events: none;
     }
 
     .callout-label {
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       font-weight: 800;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--accent);
       margin-bottom: 0.5rem;
@@ -409,6 +534,7 @@
       font-size: 1rem;
       font-style: italic;
       max-width: none;
+      font-weight: 500;
     }
 
     /* ─── CONTACT ─── */
@@ -416,22 +542,35 @@
       border-top: 1px solid var(--border);
     }
 
-    .contact-email {
+    .contact-cta {
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
-      color: var(--accent);
+      gap: 0.5rem;
+      margin-top: 2rem;
+      padding: 0.875rem 1.875rem;
+      background: var(--accent);
+      color: #fff;
       font-weight: 600;
       text-decoration: none;
-      font-size: 0.9375rem;
-      margin-top: 1.5rem;
-      padding: 0.3rem 0;
-      border-bottom: 1.5px solid var(--accent);
-      transition: opacity var(--transition);
+      font-size: 1rem;
+      border-radius: 100px;
+      transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+      box-shadow: 0 2px 12px rgba(58, 102, 72, 0.25);
     }
 
-    .contact-email:hover {
-      opacity: 0.7;
+    .contact-cta:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 32px rgba(58, 102, 72, 0.35);
+      background: var(--accent-2);
+    }
+
+    .contact-arrow {
+      display: inline-block;
+      transition: transform var(--transition);
+    }
+
+    .contact-cta:hover .contact-arrow {
+      transform: translateX(4px);
     }
 
     /* ─── FOOTER ─── */
@@ -460,7 +599,8 @@
       position: relative;
       display: inline-block;
       overflow: hidden;
-      border-radius: 4px;
+      border-radius: 6px;
+      transition: transform var(--transition), box-shadow var(--transition);
     }
 
     .footer-logo::after {
@@ -475,27 +615,27 @@
     .footer-logo img {
       height: 26px;
       width: auto;
-      opacity: 0.35;
-      border-radius: 4px;
+      opacity: 0.4;
+      border-radius: 6px;
       display: block;
       transition: opacity var(--transition);
     }
 
-    .footer-logo img:hover {
-      opacity: 0.6;
+    .footer-logo:hover img {
+      opacity: 0.7;
     }
 
-    /* ─── Divider ─── */
-    hr.section-divider {
-      display: none;
+    .footer-logo:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     }
 
-    /* ─── Responsive tweaks ─── */
+    /* ─── Responsive ─── */
     @media (max-width: 500px) {
-      section { padding-block: 3.5rem; }
-      #hero { padding-block: 4rem 3rem; min-height: auto; }
-      .about-card { padding: 1.75rem 1.25rem; }
-      .callout { padding: 1.25rem; }
+      section { padding-block: 4rem; }
+      #hero { padding-block: 5rem 4rem; min-height: auto; }
+      .about-card { padding: 1.75rem 1.5rem; }
+      .callout { padding: 1.25rem 1.5rem; }
     }
   </style>
 </head>
@@ -508,15 +648,20 @@
   <header>
     <nav class="nav" id="site-nav" aria-label="Main navigation">
       <div class="nav-inner">
-        <a href="#hero" class="nav-logo" aria-label="Opit Works home">
-          <img src="https://raw.githubusercontent.com/nikolaytrandev/opit-works-site/main/logo.jpg" alt="Opit Works logo">
+        <a href="#hero" class="nav-brand" aria-label="Opit Works home">
+          <span class="nav-logo-wrap">
+            <img src="https://raw.githubusercontent.com/nikolaytrandev/opit-works-site/main/logo.jpg" alt="Opit Works logo">
+          </span>
+          <span class="nav-brand-name" aria-hidden="true">Opit Works</span>
         </a>
         <ul class="nav-links" role="list">
           <li><a href="#about">About</a></li>
           <li><a href="#how-we-work">How we work</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
-        <div class="nav-right"></div>
+        <div class="nav-right">
+          <a href="#contact" class="nav-cta">Say hello</a>
+        </div>
       </div>
     </nav>
   </header>
@@ -526,8 +671,13 @@
     <!-- ─── HERO ─── -->
     <section id="hero" aria-labelledby="hero-headline">
       <div class="hero-content">
-        <span class="hero-eyebrow">opitworks.ai</span>
-        <h1 class="hero-headline" id="hero-headline">Joy-driven systems.</h1>
+        <span class="hero-eyebrow">
+          <span class="eyebrow-dot" aria-hidden="true"></span>
+          opitworks.ai
+        </span>
+        <h1 class="hero-headline" id="hero-headline">
+          <span class="text-gradient">Joy-driven</span> systems.
+        </h1>
         <p class="hero-subhead">
           Opit Works is a small product studio exploring games and interactive
           experiences that help people learn through play.
@@ -539,9 +689,9 @@
     <!-- ─── ABOUT ─── -->
     <section id="about" aria-labelledby="about-heading">
       <div class="container">
-        <p class="section-label">About</p>
-        <h2 id="about-heading">The word behind the work.</h2>
-        <div class="about-card">
+        <p class="section-label reveal">About</p>
+        <h2 id="about-heading" class="reveal reveal-delay-1">The word behind the work.</h2>
+        <div class="about-card reveal reveal-delay-2">
           <p>
             Opit (опит) is a Bulgarian word that translates roughly to
             <em>experience</em>, <em>attempt</em>, or <em>experiment</em>. It's the
@@ -560,13 +710,13 @@
     <!-- ─── HOW WE WORK ─── -->
     <section id="how-we-work" aria-labelledby="how-heading">
       <div class="container">
-        <p class="section-label">How we work</p>
-        <h2 id="how-heading">Designed like a game.</h2>
-        <p class="how-intro">
+        <p class="section-label reveal">How we work</p>
+        <h2 id="how-heading" class="reveal reveal-delay-1">Designed like a game.</h2>
+        <p class="how-intro reveal reveal-delay-2">
           We design like game makers: define the core action, create a loop, and
           choose constraints that make the experience repeatable.
         </p>
-        <ul class="steps-list" role="list">
+        <ul class="steps-list reveal reveal-delay-3" role="list">
           <li>
             <span class="step-num" aria-hidden="true">1</span>
             Prototype quickly
@@ -580,7 +730,7 @@
             Iterate what people repeat
           </li>
         </ul>
-        <div class="callout" role="note">
+        <div class="callout reveal" role="note">
           <p class="callout-label">Favorite constraint</p>
           <p>If it can't fit into 10 minutes, it's probably not the right shape (yet).</p>
         </div>
@@ -590,15 +740,15 @@
     <!-- ─── CONTACT ─── -->
     <section id="contact" aria-labelledby="contact-heading">
       <div class="container">
-        <p class="section-label">Contact</p>
-        <h2 id="contact-heading">Let's talk.</h2>
-        <p>
+        <p class="section-label reveal">Contact</p>
+        <h2 id="contact-heading" class="reveal reveal-delay-1">Let's talk.</h2>
+        <p class="reveal reveal-delay-2">
           Have something that should feel more like play and less like software?
           Let's talk.
         </p>
-
-        <a href="mailto:hello@opitworks.ai" class="contact-email" aria-label="Email hello@opitworks.ai">
+        <a href="mailto:hello@opitworks.ai" class="contact-cta reveal reveal-delay-3" aria-label="Email hello@opitworks.ai">
           hello@opitworks.ai
+          <span class="contact-arrow" aria-hidden="true">→</span>
         </a>
       </div>
     </section>
@@ -621,18 +771,32 @@
 
     /* ─── Nav scroll class ─── */
     var nav = document.getElementById('site-nav');
-    var SCROLL_THRESHOLD = 10;
-
     function updateNav() {
-      if (window.scrollY > SCROLL_THRESHOLD) {
-        nav.classList.add('scrolled');
-      } else {
-        nav.classList.remove('scrolled');
-      }
+      nav.classList.toggle('scrolled', window.scrollY > 10);
     }
-
     window.addEventListener('scroll', updateNav, { passive: true });
     updateNav();
+
+    /* ─── Reveal on scroll ─── */
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+      document.querySelectorAll('.reveal').forEach(function(el) {
+        observer.observe(el);
+      });
+    } else {
+      /* Fallback: show all immediately */
+      document.querySelectorAll('.reveal').forEach(function(el) {
+        el.classList.add('visible');
+      });
+    }
 
     /* ─── Smooth scroll (respects reduced-motion) ─── */
     var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -650,12 +814,10 @@
           target.scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Move focus for accessibility
         target.setAttribute('tabindex', '-1');
         target.focus({ preventScroll: true });
       });
     });
-
   </script>
 
 </body>
