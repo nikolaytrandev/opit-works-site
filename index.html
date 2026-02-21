@@ -205,11 +205,23 @@
     }
 
     .nav-logo {
+      position: relative;
       display: flex;
       align-items: center;
       gap: 0.5rem;
       text-decoration: none;
       flex-shrink: 0;
+      overflow: hidden;
+      border-radius: 6px;
+    }
+
+    .nav-logo::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(61, 107, 79, 0.28);
+      mix-blend-mode: multiply;
+      pointer-events: none;
     }
 
     .nav-logo img {
@@ -310,33 +322,6 @@
       color: var(--muted);
       font-style: italic;
       opacity: 0.8;
-      margin-bottom: 2rem;
-    }
-
-    .hero-logo-wrap {
-      position: relative;
-      display: block;
-      width: fit-content;
-      margin-inline: auto;
-      border-radius: 14px;
-      overflow: hidden;
-      box-shadow: var(--shadow);
-    }
-
-    .hero-logo-wrap img {
-      display: block;
-      height: 180px;
-      width: auto;
-      border-radius: 14px;
-    }
-
-    .hero-logo-wrap::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(61, 107, 79, 0.28);
-      mix-blend-mode: multiply;
-      pointer-events: none;
     }
 
     /* ─── ABOUT ─── */
@@ -471,6 +456,22 @@
       color: var(--muted);
     }
 
+    .footer-logo {
+      position: relative;
+      display: inline-block;
+      overflow: hidden;
+      border-radius: 4px;
+    }
+
+    .footer-logo::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(61, 107, 79, 0.28);
+      mix-blend-mode: multiply;
+      pointer-events: none;
+    }
+
     .footer-logo img {
       height: 26px;
       width: auto;
@@ -532,9 +533,6 @@
           experiences that help people learn through play.
         </p>
         <p class="hero-tagline">Small bets. Fast prototypes. High taste.</p>
-        <div class="hero-logo-wrap">
-          <img src="https://raw.githubusercontent.com/nikolaytrandev/opit-works-site/main/logo.jpg" alt="Opit Works logo">
-        </div>
       </div>
     </section>
 
