@@ -277,41 +277,10 @@
       animation: fadeUp .8s .75s var(--ease) both;
     }
 
-    /* ── Hero CTAs ── */
-    .hero-ctas {
-      display: flex; align-items: center; gap: 1rem;
-      flex-wrap: wrap; justify-content: center;
-      animation: fadeUp .8s .9s var(--ease) both;
-    }
-
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(22px); }
       to   { opacity: 1; transform: none; }
     }
-
-    .btn-primary {
-      display: inline-flex; align-items: center; gap: .5rem;
-      padding: .8rem 1.8rem;
-      background: var(--green); color: #fff;
-      font-size: .9375rem; font-weight: 600; font-family: var(--font-b);
-      border-radius: 100px; text-decoration: none;
-      transition: transform 240ms var(--ease), box-shadow 240ms var(--ease), background 220ms;
-      box-shadow: 0 4px 24px rgba(79,130,100,.35);
-    }
-    .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 36px rgba(79,130,100,.42);
-      background: #5f9672;
-    }
-    .btn-ghost {
-      display: inline-flex; align-items: center; gap: .5rem;
-      padding: .8rem 1.8rem;
-      border: 1px solid var(--border-2); color: var(--muted);
-      font-size: .9375rem; font-weight: 500; font-family: var(--font-b);
-      border-radius: 100px; text-decoration: none;
-      transition: color 220ms, border-color 220ms, transform 240ms var(--ease);
-    }
-    .btn-ghost:hover { color: var(--text); border-color: rgba(236,232,223,.24); transform: translateY(-2px); }
 
     /* ── Scroll cue ── */
     .scroll-cue {
@@ -578,14 +547,6 @@
           that transform everyday life into something playable — and something worth
           learning from.
         </p>
-
-        <div class="hero-ctas">
-          <a href="#work" class="btn-primary">
-            Explore the work
-            <span aria-hidden="true">↓</span>
-          </a>
-          <a href="#philosophy" class="btn-ghost">Our philosophy</a>
-        </div>
 
       </div>
 
