@@ -122,20 +122,6 @@
     .nav-brand {
       display: flex; align-items: center; gap: .7rem; text-decoration: none;
     }
-    .nav-logo-shell {
-      position: relative; overflow: hidden; border-radius: 8px;
-      box-shadow: 0 1px 5px rgba(0,0,0,.5);
-      flex-shrink: 0;
-    }
-    .nav-logo-shell::after {
-      content: ''; position: absolute; inset: 0;
-      background: rgba(61,107,79,.28); mix-blend-mode: multiply; pointer-events: none;
-    }
-    .nav-logo-shell img { height: 32px; width: auto; display: block; border-radius: 8px; }
-    .nav-wordmark {
-      font-family: var(--font-d); font-size: 1.1rem; font-weight: 500;
-      color: var(--text); letter-spacing: .03em;
-    }
     .nav-links { display: flex; align-items: center; gap: .25rem; list-style: none; }
     .nav-links a {
       color: var(--muted); text-decoration: none;
@@ -162,7 +148,6 @@
     }
     @media (max-width: 660px) {
       .nav-links { display: none; }
-      .nav-wordmark { display: none; }
     }
 
     /* ─── HERO ─── */
@@ -507,10 +492,7 @@
   <nav id="site-nav" aria-label="Main navigation">
     <div class="nav-inner">
       <a href="#hero" class="nav-brand" aria-label="Opit Works home">
-        <span class="nav-logo-shell">
-          <img src="logo_opit.svg" alt="Opit Works logo">
-        </span>
-        <span class="nav-wordmark">Opit Works</span>
+        <img src="logo_opit.svg" alt="Opit Works logo" style="height:32px;width:auto;display:block;">
       </a>
       <ul class="nav-links" role="list">
         <li><a href="#philosophy">Philosophy</a></li>
