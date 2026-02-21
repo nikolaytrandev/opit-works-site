@@ -12,12 +12,12 @@
   <style>
     /* ─── Variables ─── */
     :root {
-      --bg:          #1e1c2e;
-      --surface:     #26243a;
-      --surface-2:   #302d48;
+      --bg:          #0a0912;
+      --surface:     #12101e;
+      --surface-2:   #1a1829;
       --text:        #f0eeff;
-      --muted:       #9e9bbf;
-      --dim:         #5e5a7a;
+      --muted:       #8e89b2;
+      --dim:         #4d4870;
       --gold:        #ff6e54;
       --gold-dim:    rgba(255,110,84,0.12);
       --gold-border: rgba(255,110,84,0.22);
@@ -31,6 +31,55 @@
       --ease: cubic-bezier(0.16, 1, 0.3, 1);
       --nav-h: 68px;
       --max-w: 1060px;
+      /* theme-switchable raw values */
+      --nav-scrolled-bg:   rgba(10,9,18,.92);
+      --nav-link-hover:    rgba(255,255,255,.05);
+      --nav-cta-hover-bg:  rgba(255,110,84,.2);
+      --nav-cta-hover-sh:  rgba(255,110,84,.15);
+      --hero-glow-a:       rgba(0,203,167,.14);
+      --hero-glow-b:       rgba(255,110,84,.05);
+      --hero-grid:         rgba(240,238,255,.03);
+      --logo-glow:         rgba(255,110,84,.25);
+      --logo-shadow:       rgba(0,0,0,.5);
+      --phil-orb:          rgba(255,110,84,.05);
+      --method-orb:        rgba(0,203,167,.07);
+      --contact-orb:       rgba(0,203,167,.09);
+      --btn-sh:            rgba(0,203,167,.32);
+      --btn-hover-sh:      rgba(0,203,167,.42);
+      --btn-hover-bg:      #00a889;
+    }
+
+    /* ─── Light mode ─── */
+    html[data-theme="light"] {
+      --bg:          #fff8f5;
+      --surface:     #fff0e9;
+      --surface-2:   #ffe5d8;
+      --text:        #1a0e0a;
+      --muted:       #7a5a52;
+      --dim:         #c4a89e;
+      --gold:        #e8522a;
+      --gold-dim:    rgba(232,82,42,0.10);
+      --gold-border: rgba(232,82,42,0.20);
+      --green:       #009e85;
+      --green-dim:   rgba(0,158,133,0.10);
+      --violet:      #6e4fd4;
+      --border:      rgba(26,14,10,0.08);
+      --border-2:    rgba(26,14,10,0.14);
+      --nav-scrolled-bg:   rgba(255,248,245,.94);
+      --nav-link-hover:    rgba(0,0,0,.05);
+      --nav-cta-hover-bg:  rgba(232,82,42,.12);
+      --nav-cta-hover-sh:  rgba(232,82,42,.2);
+      --hero-glow-a:       rgba(0,158,133,.12);
+      --hero-glow-b:       rgba(232,82,42,.07);
+      --hero-grid:         rgba(26,14,10,.03);
+      --logo-glow:         rgba(232,82,42,.22);
+      --logo-shadow:       rgba(180,80,50,.12);
+      --phil-orb:          rgba(232,82,42,.06);
+      --method-orb:        rgba(0,158,133,.08);
+      --contact-orb:       rgba(0,158,133,.08);
+      --btn-sh:            rgba(0,158,133,.25);
+      --btn-hover-sh:      rgba(0,158,133,.35);
+      --btn-hover-bg:      #008a73;
     }
 
     /* ─── Reset ─── */
@@ -43,6 +92,7 @@
       line-height: 1.65;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
+      transition: background 400ms var(--ease), color 400ms var(--ease);
     }
 
     /* Grain overlay */
@@ -110,7 +160,7 @@
       border-bottom: 1px solid transparent;
     }
     nav.scrolled {
-      background: rgba(30,28,46,.92);
+      background: var(--nav-scrolled-bg);
       backdrop-filter: blur(20px) saturate(1.6);
       -webkit-backdrop-filter: blur(20px) saturate(1.6);
       border-bottom-color: var(--border);
@@ -119,9 +169,14 @@
       max-width: var(--max-w); margin-inline: auto; padding-inline: 2rem;
       height: 100%; display: flex; align-items: center; justify-content: space-between;
     }
-    .nav-brand {
-      display: flex; align-items: center; gap: .7rem; text-decoration: none;
+    .nav-brand { display: flex; align-items: center; gap: .7rem; }
+    .theme-toggle {
+      background: none; border: none; padding: 0; cursor: pointer;
+      display: flex; align-items: center;
+      transition: transform 500ms var(--ease);
     }
+    .theme-toggle:hover { transform: rotate(20deg) scale(1.12); }
+    html[data-theme="light"] .theme-toggle img { filter: brightness(.82) saturate(1.15); }
     .nav-links { display: flex; align-items: center; gap: .25rem; list-style: none; }
     .nav-links a {
       color: var(--muted); text-decoration: none;
@@ -129,7 +184,7 @@
       padding: .4rem .85rem; border-radius: 6px;
       transition: color 200ms, background 200ms;
     }
-    .nav-links a:hover { color: var(--text); background: rgba(255,255,255,.05); }
+    .nav-links a:hover { color: var(--text); background: var(--nav-link-hover); }
     .nav-cta {
       display: inline-flex; align-items: center;
       padding: .42rem 1.1rem;
@@ -142,9 +197,9 @@
       transition: background 200ms, transform 220ms var(--ease), box-shadow 220ms;
     }
     .nav-cta:hover {
-      background: rgba(255,110,84,.2) !important;
+      background: var(--nav-cta-hover-bg) !important;
       transform: translateY(-1px);
-      box-shadow: 0 4px 16px rgba(255,110,84,.15);
+      box-shadow: 0 4px 16px var(--nav-cta-hover-sh);
     }
     @media (max-width: 660px) {
       .nav-links { display: none; }
@@ -167,8 +222,8 @@
       top: -10%; left: 50%; transform: translateX(-50%);
       width: min(90vw, 900px); height: min(90vw, 900px);
       background: radial-gradient(circle,
-        rgba(0,203,167,.14) 0%,
-        rgba(255,110,84,.05) 38%,
+        var(--hero-glow-a) 0%,
+        var(--hero-glow-b) 38%,
         transparent 68%);
       pointer-events: none;
       animation: heroGlow 6s ease-in-out infinite;
@@ -183,8 +238,8 @@
       content: '';
       position: absolute; inset: 0;
       background:
-        linear-gradient(transparent calc(50% - 1px), rgba(240,238,255,.03) calc(50% - 1px), rgba(240,238,255,.03) 50%, transparent 50%),
-        linear-gradient(90deg, transparent calc(50% - 1px), rgba(240,238,255,.03) calc(50% - 1px), rgba(240,238,255,.03) 50%, transparent 50%);
+        linear-gradient(transparent calc(50% - 1px), var(--hero-grid) calc(50% - 1px), var(--hero-grid) 50%, transparent 50%),
+        linear-gradient(90deg, transparent calc(50% - 1px), var(--hero-grid) calc(50% - 1px), var(--hero-grid) 50%, transparent 50%);
       pointer-events: none;
     }
 
@@ -200,7 +255,7 @@
     }
     .hero-logo-shell img {
       height: 220px; width: auto; display: block;
-      filter: drop-shadow(0 0 32px rgba(255,110,84,.25)) drop-shadow(0 12px 40px rgba(0,0,0,.5));
+      filter: drop-shadow(0 0 32px var(--logo-glow)) drop-shadow(0 12px 40px var(--logo-shadow));
     }
     @keyframes logoIn {
       0%   { opacity: 0; transform: scale(.7) translateY(30px) rotate(-6deg); filter: blur(12px); }
@@ -303,7 +358,7 @@
       position: absolute; bottom: -30%; right: -10%;
       width: min(65vw, 700px); height: min(65vw, 700px);
       background: radial-gradient(circle,
-        rgba(255,110,84,.05) 0%, transparent 68%);
+        var(--phil-orb) 0%, transparent 68%);
       pointer-events: none;
     }
 
@@ -362,7 +417,7 @@
       position: absolute; top: -20%; left: -15%;
       width: min(60vw, 650px); height: min(60vw, 650px);
       background: radial-gradient(circle,
-        rgba(0,203,167,.07) 0%, transparent 70%);
+        var(--method-orb) 0%, transparent 70%);
       pointer-events: none;
     }
 
@@ -405,7 +460,7 @@
       transform: translate(-50%,-50%);
       width: min(75vw, 750px); height: min(75vw, 750px);
       background: radial-gradient(circle,
-        rgba(0,203,167,.09) 0%, transparent 68%);
+        var(--contact-orb) 0%, transparent 68%);
       pointer-events: none;
     }
     .contact-inner { position: relative; z-index: 1; }
@@ -428,13 +483,13 @@
       background: var(--green); color: #fff;
       font-size: 1rem; font-weight: 600; font-family: var(--font-b);
       border-radius: 100px; text-decoration: none;
-      box-shadow: 0 4px 24px rgba(0,203,167,.32);
+      box-shadow: 0 4px 24px var(--btn-sh);
       transition: transform 240ms var(--ease), box-shadow 240ms, background 220ms;
     }
     .contact-email:hover {
       transform: translateY(-3px);
-      box-shadow: 0 12px 38px rgba(0,203,167,.42);
-      background: #00a889;
+      box-shadow: 0 12px 38px var(--btn-hover-sh);
+      background: var(--btn-hover-bg);
     }
     .contact-arrow {
       display: inline-block;
@@ -481,9 +536,11 @@
   <!-- ── NAV ── -->
   <nav id="site-nav" aria-label="Main navigation">
     <div class="nav-inner">
-      <a href="#hero" class="nav-brand" aria-label="Opit Works home">
-        <img src="logo_opit.svg" alt="Opit Works logo" style="height:32px;width:auto;display:block;">
-      </a>
+      <div class="nav-brand">
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle light / dark mode" title="Toggle light / dark mode">
+          <img src="logo_opit.svg" alt="Opit Works" style="height:32px;width:auto;display:block;">
+        </button>
+      </div>
       <ul class="nav-links" role="list">
         <li><a href="#philosophy">Philosophy</a></li>
         <li><a href="#method">Method</a></li>
@@ -666,6 +723,19 @@
   <script>
     /* Year */
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    /* Theme toggle */
+    (function () {
+      var html = document.documentElement;
+      var saved = localStorage.getItem('theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      html.setAttribute('data-theme', saved || (prefersDark ? 'dark' : 'light'));
+      document.getElementById('theme-toggle').addEventListener('click', function () {
+        var next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+        html.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+      });
+    })();
 
     /* Nav scroll */
     var nav = document.getElementById('site-nav');
